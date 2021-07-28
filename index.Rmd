@@ -61,7 +61,6 @@ knitr::write_bib(c(
 ## File Creation Information 
 
   * File creation date: `r Sys.Date()`
-  * Windows version: `r win.version()`
   * `r R.version.string`
 
 
