@@ -34,9 +34,11 @@ stent_study <-read_csv('data/stent_study.csv')
 
 
   b. Complete similar steps as in the class notes.  
-    i. Use `inspect` on the data.
-    ii. Create a table of `outcome365` and `group`. Comment on the results.
-    iii. Create a barchart of the data.
+    i. Use `inspect` on the data.  
+    ii. Create a table of `outcome365` and `group`. Comment on the results.  
+    iii. Create a barchart of the data.  
+
+Using `inspect`  
 
 
 ```r
@@ -56,7 +58,7 @@ inspect(stent_study)
 ## 3 no_event (83.8%), stroke (16.2%)
 ```
 
-
+The table: 
 
 
 ```r
@@ -73,7 +75,7 @@ tally(outcome365~group,data=stent_study,format="proportion",margins = TRUE)
 
 Patients in the treatment group had a higher proportion of strokes than those in the control group after one year. The treatment does not appear to help the rate of strokes and in fact may hurt it.
 
-
+Barchart: 
 
 
 ```r
@@ -96,7 +98,7 @@ The data is in the file `migraine_study.csv` in the folder `data`.
 
 Complete the following work:
 
-  a. Read the data an object called `migraine_study`.  
+  a. Read the data into an object called `migraine_study`.  
   
 
 ```r
@@ -151,7 +153,8 @@ tally(pain_free~group,data=migraine_study,format="proportion",margin=TRUE)
   
   f. Do the data provide convincing evidence that there is a real pain reduction for those patients in the treatment group? Or do you think that the observed difference might just be due to chance?
   
-  Either of these is acceptable: 
+  Either of these is acceptable:  
+  
  i. We could get slightly different group estimates even if there is no real difference. Though the difference is big, I'm skeptical the results show a real difference and think this might be due to chance.  
  ii. The difference in these rates looks pretty big, and so I suspect acupuncture is having a positive impact on pain.
 

@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-07-28" />
+<meta name="date" content="2021-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -544,7 +544,7 @@ Complete a similar analysis for case where exactly 2 people in a room of 23 peop
 <span id="cb50-2"><a href="CS2.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">match=</span><span class="fu">if_else</span>(length<span class="sc">==</span><span class="dv">22</span>,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb50-3"><a href="CS2.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prob=</span><span class="fu">mean</span>(match))</span></code></pre></div>
 <pre><code>##     prob
-## 1 0.3662</code></pre>
+## 1 0.3632</code></pre>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="CS2.html#cb52-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">length</span>(<span class="fu">unique</span>(<span class="fu">sample</span>(days,<span class="at">size=</span><span class="dv">23</span>,<span class="at">replace =</span> <span class="cn">TRUE</span>)))) <span class="sc">%&gt;%</span></span>
 <span id="cb52-2"><a href="CS2.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_bar</span>(<span class="sc">~</span>length)</span></code></pre></div>
 <p><img src="07-Probability-Case-Study-Solution_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>

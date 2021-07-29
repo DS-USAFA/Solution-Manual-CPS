@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-07-28" />
+<meta name="date" content="2021-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -543,10 +543,11 @@ div.csl-indent {
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="CS1.html#cb2-1" aria-hidden="true" tabindex="-1"></a>stent_study <span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&#39;data/stent_study.csv&#39;</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Complete similar steps as in the class notes.<br />
-i. Use <code>inspect</code> on the data.
-ii. Create a table of <code>outcome365</code> and <code>group</code>. Comment on the results.
+i. Use <code>inspect</code> on the data.<br />
+ii. Create a table of <code>outcome365</code> and <code>group</code>. Comment on the results.<br />
 iii. Create a barchart of the data.</li>
 </ol>
+<p>Using <code>inspect</code></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="CS1.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(stent_study)</span></code></pre></div>
 <pre><code>## 
 ## categorical variables:  
@@ -558,6 +559,7 @@ iii. Create a barchart of the data.</li>
 ## 1 control (50.3%), trmt (49.7%)                
 ## 2 no_event (89.8%), stroke (10.2%)             
 ## 3 no_event (83.8%), stroke (16.2%)</code></pre>
+<p>The table:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="CS1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(outcome365<span class="sc">~</span>group,<span class="at">data=</span>stent_study,<span class="at">format=</span><span class="st">&quot;proportion&quot;</span>,<span class="at">margins =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##           group
 ## outcome365   control      trmt
@@ -565,6 +567,7 @@ iii. Create a barchart of the data.</li>
 ##   stroke   0.1233480 0.2008929
 ##   Total    1.0000000 1.0000000</code></pre>
 <p>Patients in the treatment group had a higher proportion of strokes than those in the control group after one year. The treatment does not appear to help the rate of strokes and in fact may hurt it.</p>
+<p>Barchart:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="CS1.html#cb7-1" aria-hidden="true" tabindex="-1"></a>stent_study <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="CS1.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_props</span>(<span class="sc">~</span>group,<span class="at">fill=</span><span class="sc">~</span>outcome365,<span class="at">position=</span><span class="st">&#39;fill&#39;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="CS1.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Impact of Stents of Stroke&quot;</span>,</span>
@@ -579,7 +582,7 @@ iii. Create a barchart of the data.</li>
 <p>The data is in the file <code>migraine_study.csv</code> in the folder <code>data</code>.</p>
 <p>Complete the following work:</p>
 <ol style="list-style-type: lower-alpha">
-<li>Read the data an object called <code>migraine_study</code>.</li>
+<li>Read the data into an object called <code>migraine_study</code>.</li>
 </ol>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="CS1.html#cb8-1" aria-hidden="true" tabindex="-1"></a>migraine_study <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/migraine_study.csv&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="CS1.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(migraine_study)</span></code></pre></div>
@@ -616,9 +619,12 @@ iii. Create a barchart of the data.</li>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Do the data provide convincing evidence that there is a real pain reduction for those patients in the treatment group? Or do you think that the observed difference might just be due to chance?</li>
 </ol>
-<p>Either of these is acceptable:
-i. We could get slightly different group estimates even if there is no real difference. Though the difference is big, I’m skeptical the results show a real difference and think this might be due to chance.<br />
-ii. The difference in these rates looks pretty big, and so I suspect acupuncture is having a positive impact on pain.</p>
+<p>Either of these is acceptable:</p>
+<ol style="list-style-type: lower-roman">
+<li>We could get slightly different group estimates even if there is no real difference. Though the difference is big, I’m skeptical the results show a real difference and think this might be due to chance.<br />
+</li>
+<li>The difference in these rates looks pretty big, and so I suspect acupuncture is having a positive impact on pain.</li>
+</ol>
 <ol start="3" style="list-style-type: decimal">
 <li>Compile, <code>knit</code>, this report into a pdf.</li>
 </ol>
