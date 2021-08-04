@@ -37,5 +37,31 @@ ii. The variables were whether or not the patient practiced the Buteyko method (
 iii. The research question was **Do asthmatic patients who practice the Buteyko method experience improvement in their condition?**
 
 
+### Problem 3 
+
+In the package **Stat2Data** is a data set called `Election16`. Create a scatterplot for the percent of advanced degree versus per capita income in the state. Describe the relationship between these two variables. Note: you may have to load the library and data set.
+
+Load the library:  
 
 
+```r
+library(Stat2Data)
+```
+
+
+```r
+data(Election16)
+```
+
+
+Create the scatterplot.
+
+
+```r
+Election16 %>%
+  gf_point(Income~Adv)
+```
+
+<img src="02-Data-Basics-Solutions_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+
+There appears to be a positive association between the percentage of advanced degrees in a state and the per capita income. 
