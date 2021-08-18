@@ -48,7 +48,7 @@ d. He stands outside the QRC and asks every third person that walks out the door
 a. Simple random sample. Non-response bias, if only those people who have strong opinions about the survey responds his sample may not be representative of the population.  
 b. Convenience sample. Under coverage bias, his sample may not be representative of the population since it consists only of his friends. It is also possible that the study will have non-response bias if some choose to not bring back the survey.  
 c. Convenience sample. This will have a similar issues to handing out surveys to friends.  
-d. Convenience sample. Same.
+d. Systematic sample. Could have non-respons bias. It could also have bias as three students may not be enough separation to get good coverage.
 
 
 \pagebreak
@@ -70,8 +70,7 @@ b. Response variable: Duration of the cold.
 Explanatory variable: Treatment, with 4 levels; placebo, 1g, 3g, 3g with additives.  
 c. The patients were blinded as they did not know which treatment they received.  
 d. The study was double-blind with respect to the researchers evaluating the patients, but the nurses who briely interacted with patients during the distribution of the medication were not blinded. (It was partially double-blind.)  
-e. Since the patients were randomly assigned to the treatment groups and they are blinded we would expect about an equal number of patients in each group to not adhere to the treatment. While this means that final results of the study will be based on fewer number of participants, non-adherence does not introduce a confounding variable to
-the study.  
+e. Since the patients were randomly assigned to the treatment groups and they are blinded we would expect about an equal number of patients in each group to not adhere to the treatment. While this means that final results of the study will be based on fewer number of participants, non-adherence does not introduce a confounding variable to the study.  
 
 ### Problem 5  
 
