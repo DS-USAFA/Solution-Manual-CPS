@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-09-21" />
+<meta name="date" content="2021-10-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -646,10 +646,19 @@ to chance and the heart transplant is effective.</p>
 <span id="cb361-2"><a href="CS3.html#cb361-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p_value =</span> <span class="fu">mean</span>(diffprop<span class="sc">&gt;=</span>obs))</span></code></pre></div>
 <pre><code>##   p_value
 ## 1   0.011</code></pre>
+<p>If we wanted to use a <code>hypergeometric</code>. We could use any of the cell in the table. We will use the upper left. More extreme would be 4 or fewer in the control group being alive. We get a similar p-value.</p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="CS3.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(<span class="sc">~</span>outcome<span class="sc">+</span>group,<span class="at">data=</span>heart,<span class="at">margins =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##        group
+## outcome Control Treatment Total
+##   Alive       4        24    28
+##   Dead       30        45    75
+##   Total      34        69   103</code></pre>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="CS3.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phyper</span>(<span class="dv">4</span>,<span class="dv">34</span>,<span class="dv">69</span>,<span class="dv">28</span>)</span></code></pre></div>
+<pre><code>## [1] 0.01039537</code></pre>
 <ol start="8" style="list-style-type: lower-alpha">
 <li>Decide if the treatment is effective.</li>
 </ol>
-<p>Under the independence model, only 11 out of 1000 times (1.1%) did we get a difference of 0.23 or higher between the proportions of patients that died in the control and treatment groups. Since this is a low probability, we can reject the claim of independence in favor of the alternate model. There is convincing evidence to suggest that the transplant program is defective.</p>
+<p>Under the independence model, only 11 out of 1000 times (1.1%) did we get a difference of 0.23 or higher between the proportions of patients that died in the control and treatment groups. Since this is a low probability, we can reject the claim of independence in favor of the alternate model. There is convincing evidence to suggest that the transplant program is effective.</p>
 
 </div>
 </div>

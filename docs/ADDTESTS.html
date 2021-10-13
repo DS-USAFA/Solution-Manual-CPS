@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-09-21" />
+<meta name="date" content="2021-10-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -542,8 +542,8 @@ div.csl-indent {
 <ol style="list-style-type: lower-alpha">
 <li>Load the data and tally the data into a table. The data is in <code>golf_balls.csv</code>.</li>
 </ol>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="ADDTESTS.html#cb565-1" aria-hidden="true" tabindex="-1"></a>golf_balls <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/golf_balls.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="ADDTESTS.html#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(golf_balls)</span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="ADDTESTS.html#cb569-1" aria-hidden="true" tabindex="-1"></a>golf_balls <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/golf_balls.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="ADDTESTS.html#cb570-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(golf_balls)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   number
 ##    &lt;dbl&gt;
@@ -553,14 +553,14 @@ div.csl-indent {
 ## 4      4
 ## 5      4
 ## 6      3</code></pre>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="ADDTESTS.html#cb568-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls)</span></code></pre></div>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="ADDTESTS.html#cb572-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls)</span></code></pre></div>
 <pre><code>## number
 ##   1   2   3   4 
 ## 137 138 107 104</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Using the function <code>chisq.test</code> conduct a hypothesis test of equally likely distribution of balls. You may have to read the help menu.</li>
 </ol>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="ADDTESTS.html#cb570-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls),<span class="at">p=</span><span class="fu">c</span>(.<span class="dv">25</span>,.<span class="dv">25</span>,.<span class="dv">25</span>,.<span class="dv">25</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="ADDTESTS.html#cb574-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls),<span class="at">p=</span><span class="fu">c</span>(.<span class="dv">25</span>,.<span class="dv">25</span>,.<span class="dv">25</span>,.<span class="dv">25</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
@@ -569,7 +569,7 @@ div.csl-indent {
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Repeat part b. but assume balls with the numbers 1 and 2 occur 30% of the time and balls with 3 and 4 occur 20%.</li>
 </ol>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="ADDTESTS.html#cb572-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls),<span class="at">p=</span><span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">2</span>,.<span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="ADDTESTS.html#cb576-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls),<span class="at">p=</span><span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">2</span>,.<span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
@@ -581,36 +581,36 @@ div.csl-indent {
 <p><strong>Bootstrap hypothesis testing</strong></p>
 <p>Repeat the analysis of the MLB data from the lesson but this time generate a bootstrap distribution of the <span class="math inline">\(F\)</span> statistic.</p>
 <p>First, read in the data.</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="ADDTESTS.html#cb574-1" aria-hidden="true" tabindex="-1"></a>mlb_obp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_obp.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="ADDTESTS.html#cb578-1" aria-hidden="true" tabindex="-1"></a>mlb_obp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_obp.csv&quot;</span>)</span></code></pre></div>
 <p>Convert <code>position</code> to a factor.</p>
-<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="ADDTESTS.html#cb575-1" aria-hidden="true" tabindex="-1"></a>mlb_obp <span class="ot">&lt;-</span> mlb_obp <span class="sc">%&gt;%</span></span>
-<span id="cb575-2"><a href="ADDTESTS.html#cb575-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">position=</span><span class="fu">as.factor</span>(position))</span></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="ADDTESTS.html#cb579-1" aria-hidden="true" tabindex="-1"></a>mlb_obp <span class="ot">&lt;-</span> mlb_obp <span class="sc">%&gt;%</span></span>
+<span id="cb579-2"><a href="ADDTESTS.html#cb579-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">position=</span><span class="fu">as.factor</span>(position))</span></code></pre></div>
 <p>Summarize the data.</p>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="ADDTESTS.html#cb576-1" aria-hidden="true" tabindex="-1"></a><span class="fu">favstats</span>(obp<span class="sc">~</span>position,<span class="at">data=</span>mlb_obp)</span></code></pre></div>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="ADDTESTS.html#cb580-1" aria-hidden="true" tabindex="-1"></a><span class="fu">favstats</span>(obp<span class="sc">~</span>position,<span class="at">data=</span>mlb_obp)</span></code></pre></div>
 <pre><code>##   position   min      Q1 median      Q3   max      mean         sd   n missing
 ## 1        C 0.219 0.30000 0.3180 0.35700 0.405 0.3226154 0.04513175  39       0
 ## 2       DH 0.287 0.31625 0.3525 0.36950 0.412 0.3477857 0.03603669  14       0
 ## 3       IF 0.174 0.30800 0.3270 0.35275 0.437 0.3315260 0.03709504 154       0
 ## 4       OF 0.265 0.31475 0.3345 0.35300 0.411 0.3342500 0.02944394 120       0</code></pre>
 <p>We need a function to resample the data, we will use the <code>resample()</code> from the <code>mosaic</code> package.</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="ADDTESTS.html#cb578-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
-<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="ADDTESTS.html#cb579-1" aria-hidden="true" tabindex="-1"></a>f_boot <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb579-2"><a href="ADDTESTS.html#cb579-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(obp<span class="sc">~</span>position,<span class="at">data=</span><span class="fu">resample</span>(x)) <span class="sc">%&gt;%</span></span>
-<span id="cb579-3"><a href="ADDTESTS.html#cb579-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb579-4"><a href="ADDTESTS.html#cb579-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span>meansq[<span class="dv">1</span>]<span class="sc">/</span>meansq[<span class="dv">2</span>]) <span class="sc">%&gt;%</span></span>
-<span id="cb579-5"><a href="ADDTESTS.html#cb579-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
-<span id="cb579-6"><a href="ADDTESTS.html#cb579-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="ADDTESTS.html#cb580-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">541</span>)</span>
-<span id="cb580-2"><a href="ADDTESTS.html#cb580-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">f_boot</span>(mlb_obp)</span></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="ADDTESTS.html#cb582-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="ADDTESTS.html#cb583-1" aria-hidden="true" tabindex="-1"></a>f_boot <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb583-2"><a href="ADDTESTS.html#cb583-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(obp<span class="sc">~</span>position,<span class="at">data=</span><span class="fu">resample</span>(x)) <span class="sc">%&gt;%</span></span>
+<span id="cb583-3"><a href="ADDTESTS.html#cb583-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb583-4"><a href="ADDTESTS.html#cb583-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span>meansq[<span class="dv">1</span>]<span class="sc">/</span>meansq[<span class="dv">2</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb583-5"><a href="ADDTESTS.html#cb583-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
+<span id="cb583-6"><a href="ADDTESTS.html#cb583-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="ADDTESTS.html#cb584-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">541</span>)</span>
+<span id="cb584-2"><a href="ADDTESTS.html#cb584-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">f_boot</span>(mlb_obp)</span></code></pre></div>
 <p>Let’s plot our sampling distribution.</p>
-<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="ADDTESTS.html#cb581-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb581-2"><a href="ADDTESTS.html#cb581-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>f_boot,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb581-3"><a href="ADDTESTS.html#cb581-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb581-4"><a href="ADDTESTS.html#cb581-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Bootstrap sampling distribution of F test statistic&quot;</span>,</span>
-<span id="cb581-5"><a href="ADDTESTS.html#cb581-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Test statistic&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="ADDTESTS.html#cb585-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb585-2"><a href="ADDTESTS.html#cb585-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>f_boot,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb585-3"><a href="ADDTESTS.html#cb585-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb585-4"><a href="ADDTESTS.html#cb585-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Bootstrap sampling distribution of F test statistic&quot;</span>,</span>
+<span id="cb585-5"><a href="ADDTESTS.html#cb585-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Test statistic&quot;</span>)</span></code></pre></div>
 <p><img src="24-Additional-Hypothesis-Tests-Solutions_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Now the confidence interval for the F-statistic is:</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="ADDTESTS.html#cb582-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>f_boot,<span class="at">data=</span>results)</span></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="ADDTESTS.html#cb586-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>f_boot,<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>##          lower    upper central.p
 ## 2.5% 0.3546682 8.724895      0.95</code></pre>
 <p>We are 95% confident that the <span class="math inline">\(F\)</span> statistic is in the interval <span class="math inline">\((0.35,8.72)\)</span> which includes 1 so we fail to reject the null hypothesis of equal means. Remember under the null hypothesis the ratio of the variance between means to the pooled variance within categories should be 1.</p>
@@ -622,10 +622,10 @@ div.csl-indent {
 <ol style="list-style-type: lower-alpha">
 <li>Using the MLB from the lesson, subset on <code>IF</code> and <code>OF</code>.</li>
 </ol>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="ADDTESTS.html#cb584-1" aria-hidden="true" tabindex="-1"></a>mlb_prob3 <span class="ot">&lt;-</span> mlb_obp <span class="sc">%&gt;%</span></span>
-<span id="cb584-2"><a href="ADDTESTS.html#cb584-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(position<span class="sc">==</span><span class="st">&quot;IF&quot;</span><span class="sc">|</span>position<span class="sc">==</span><span class="st">&quot;OF&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb584-3"><a href="ADDTESTS.html#cb584-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="ADDTESTS.html#cb585-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mlb_prob3)</span></code></pre></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="ADDTESTS.html#cb588-1" aria-hidden="true" tabindex="-1"></a>mlb_prob3 <span class="ot">&lt;-</span> mlb_obp <span class="sc">%&gt;%</span></span>
+<span id="cb588-2"><a href="ADDTESTS.html#cb588-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(position<span class="sc">==</span><span class="st">&quot;IF&quot;</span><span class="sc">|</span>position<span class="sc">==</span><span class="st">&quot;OF&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb588-3"><a href="ADDTESTS.html#cb588-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="ADDTESTS.html#cb589-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mlb_prob3)</span></code></pre></div>
 <pre><code>##  position      obp        
 ##  IF:154   Min.   :0.1740  
 ##  OF:120   1st Qu.:0.3100  
@@ -637,9 +637,9 @@ div.csl-indent {
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Create a side-by-side boxplot.</li>
 </ol>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="ADDTESTS.html#cb587-1" aria-hidden="true" tabindex="-1"></a>mlb_prob3 <span class="sc">%&gt;%</span></span>
-<span id="cb587-2"><a href="ADDTESTS.html#cb587-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(obp<span class="sc">~</span>position) <span class="sc">%&gt;%</span></span>
-<span id="cb587-3"><a href="ADDTESTS.html#cb587-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="ADDTESTS.html#cb591-1" aria-hidden="true" tabindex="-1"></a>mlb_prob3 <span class="sc">%&gt;%</span></span>
+<span id="cb591-2"><a href="ADDTESTS.html#cb591-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(obp<span class="sc">~</span>position) <span class="sc">%&gt;%</span></span>
+<span id="cb591-3"><a href="ADDTESTS.html#cb591-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>())</span></code></pre></div>
 <p><img src="24-Additional-Hypothesis-Tests-Solutions_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>The hypotheses are:<br />
 <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\sigma^2_{IF}=\sigma^2{OF}\)</span>. There is no difference in the variance of on base percentage for infielders and outfielders.<br />
@@ -647,38 +647,38 @@ div.csl-indent {
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Use the differences in sample standard deviations as your test statistic. Using a permutation test, find the p-value and discuss your decision.</li>
 </ol>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="ADDTESTS.html#cb588-1" aria-hidden="true" tabindex="-1"></a>mlb_prob3 <span class="sc">%&gt;%</span></span>
-<span id="cb588-2"><a href="ADDTESTS.html#cb588-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(position) <span class="sc">%&gt;%</span></span>
-<span id="cb588-3"><a href="ADDTESTS.html#cb588-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span><span class="fu">sd</span>(obp))</span></code></pre></div>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="ADDTESTS.html#cb592-1" aria-hidden="true" tabindex="-1"></a>mlb_prob3 <span class="sc">%&gt;%</span></span>
+<span id="cb592-2"><a href="ADDTESTS.html#cb592-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(position) <span class="sc">%&gt;%</span></span>
+<span id="cb592-3"><a href="ADDTESTS.html#cb592-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span><span class="fu">sd</span>(obp))</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   position   stat
 ##   &lt;fct&gt;     &lt;dbl&gt;
 ## 1 IF       0.0371
 ## 2 OF       0.0294</code></pre>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="ADDTESTS.html#cb590-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> mlb_prob3 <span class="sc">%&gt;%</span></span>
-<span id="cb590-2"><a href="ADDTESTS.html#cb590-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;IF&quot;</span>])<span class="sc">-</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;OF&quot;</span>])) <span class="sc">%&gt;%</span></span>
-<span id="cb590-3"><a href="ADDTESTS.html#cb590-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
-<span id="cb590-4"><a href="ADDTESTS.html#cb590-4" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="ADDTESTS.html#cb594-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> mlb_prob3 <span class="sc">%&gt;%</span></span>
+<span id="cb594-2"><a href="ADDTESTS.html#cb594-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;IF&quot;</span>])<span class="sc">-</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;OF&quot;</span>])) <span class="sc">%&gt;%</span></span>
+<span id="cb594-3"><a href="ADDTESTS.html#cb594-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
+<span id="cb594-4"><a href="ADDTESTS.html#cb594-4" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
 <pre><code>## [1] 0.007651101</code></pre>
 <p>Let’s write a function to shuffle the position.</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="ADDTESTS.html#cb592-1" aria-hidden="true" tabindex="-1"></a>perm_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb592-2"><a href="ADDTESTS.html#cb592-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span> </span>
-<span id="cb592-3"><a href="ADDTESTS.html#cb592-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">position=</span><span class="fu">shuffle</span>(position)) <span class="sc">%&gt;%</span></span>
-<span id="cb592-4"><a href="ADDTESTS.html#cb592-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;IF&quot;</span>])<span class="sc">-</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;OF&quot;</span>])) <span class="sc">%&gt;%</span></span>
-<span id="cb592-5"><a href="ADDTESTS.html#cb592-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
-<span id="cb592-6"><a href="ADDTESTS.html#cb592-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="ADDTESTS.html#cb593-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">443</span>)</span>
-<span id="cb593-2"><a href="ADDTESTS.html#cb593-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">perm_stat</span>(mlb_prob3)</span></code></pre></div>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="ADDTESTS.html#cb594-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span> </span>
-<span id="cb594-2"><a href="ADDTESTS.html#cb594-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>perm_stat,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb594-3"><a href="ADDTESTS.html#cb594-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept=</span>obs,<span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb594-4"><a href="ADDTESTS.html#cb594-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb594-5"><a href="ADDTESTS.html#cb594-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Sampling distribution of difference in variances&quot;</span>,</span>
-<span id="cb594-6"><a href="ADDTESTS.html#cb594-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">&quot;Randomization permutation test&quot;</span>,</span>
-<span id="cb594-7"><a href="ADDTESTS.html#cb594-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Test statistic&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="ADDTESTS.html#cb596-1" aria-hidden="true" tabindex="-1"></a>perm_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb596-2"><a href="ADDTESTS.html#cb596-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span> </span>
+<span id="cb596-3"><a href="ADDTESTS.html#cb596-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">position=</span><span class="fu">shuffle</span>(position)) <span class="sc">%&gt;%</span></span>
+<span id="cb596-4"><a href="ADDTESTS.html#cb596-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;IF&quot;</span>])<span class="sc">-</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;OF&quot;</span>])) <span class="sc">%&gt;%</span></span>
+<span id="cb596-5"><a href="ADDTESTS.html#cb596-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
+<span id="cb596-6"><a href="ADDTESTS.html#cb596-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="ADDTESTS.html#cb597-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">443</span>)</span>
+<span id="cb597-2"><a href="ADDTESTS.html#cb597-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">perm_stat</span>(mlb_prob3)</span></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="ADDTESTS.html#cb598-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span> </span>
+<span id="cb598-2"><a href="ADDTESTS.html#cb598-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>perm_stat,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb598-3"><a href="ADDTESTS.html#cb598-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept=</span>obs,<span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb598-4"><a href="ADDTESTS.html#cb598-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb598-5"><a href="ADDTESTS.html#cb598-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Sampling distribution of difference in variances&quot;</span>,</span>
+<span id="cb598-6"><a href="ADDTESTS.html#cb598-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">&quot;Randomization permutation test&quot;</span>,</span>
+<span id="cb598-7"><a href="ADDTESTS.html#cb598-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Test statistic&quot;</span>)</span></code></pre></div>
 <p><img src="24-Additional-Hypothesis-Tests-Solutions_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>The p-value is</p>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="ADDTESTS.html#cb595-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">prop1</span>(<span class="sc">~</span>(perm_stat<span class="sc">&gt;=</span>obs),<span class="at">data=</span>results)</span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="ADDTESTS.html#cb599-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">prop1</span>(<span class="sc">~</span>(perm_stat<span class="sc">&gt;=</span>obs),<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>##  prop_TRUE 
 ## 0.04395604</code></pre>
 <p>This is a two sided test since we did not know in advance which variance would be larger. We reject the hypothesis of equal variance but the p-value is too close to the significance level. The conclusion is suspect. We need more data.</p>
@@ -686,19 +686,19 @@ div.csl-indent {
 <li>Create a bootstrap distribution of the differences in sample standard deviations, and report a 95% confidence interval. Compare with part c. </li>
 </ol>
 <p>Let’s write a function.</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="ADDTESTS.html#cb597-1" aria-hidden="true" tabindex="-1"></a>var_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb597-2"><a href="ADDTESTS.html#cb597-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resample</span>(x) <span class="sc">%&gt;%</span></span>
-<span id="cb597-3"><a href="ADDTESTS.html#cb597-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;IF&quot;</span>])<span class="sc">-</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;OF&quot;</span>])) <span class="sc">%&gt;%</span></span>
-<span id="cb597-4"><a href="ADDTESTS.html#cb597-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
-<span id="cb597-5"><a href="ADDTESTS.html#cb597-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="ADDTESTS.html#cb598-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">827</span>)</span>
-<span id="cb598-2"><a href="ADDTESTS.html#cb598-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">var_stat</span>(mlb_prob3)</span></code></pre></div>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="ADDTESTS.html#cb599-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span> </span>
-<span id="cb599-2"><a href="ADDTESTS.html#cb599-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>var_stat,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb599-3"><a href="ADDTESTS.html#cb599-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept=</span>obs,<span class="at">color=</span><span class="st">&quot;red&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb599-4"><a href="ADDTESTS.html#cb599-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb599-5"><a href="ADDTESTS.html#cb599-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Bootstrap sampling of difference in variances&quot;</span>,</span>
-<span id="cb599-6"><a href="ADDTESTS.html#cb599-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Difference in variances&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="ADDTESTS.html#cb601-1" aria-hidden="true" tabindex="-1"></a>var_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb601-2"><a href="ADDTESTS.html#cb601-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resample</span>(x) <span class="sc">%&gt;%</span></span>
+<span id="cb601-3"><a href="ADDTESTS.html#cb601-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stat=</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;IF&quot;</span>])<span class="sc">-</span><span class="fu">sd</span>(obp[position<span class="sc">==</span><span class="st">&quot;OF&quot;</span>])) <span class="sc">%&gt;%</span></span>
+<span id="cb601-4"><a href="ADDTESTS.html#cb601-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
+<span id="cb601-5"><a href="ADDTESTS.html#cb601-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="ADDTESTS.html#cb602-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">827</span>)</span>
+<span id="cb602-2"><a href="ADDTESTS.html#cb602-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">var_stat</span>(mlb_prob3)</span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="ADDTESTS.html#cb603-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span> </span>
+<span id="cb603-2"><a href="ADDTESTS.html#cb603-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>var_stat,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb603-3"><a href="ADDTESTS.html#cb603-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept=</span>obs,<span class="at">color=</span><span class="st">&quot;red&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb603-4"><a href="ADDTESTS.html#cb603-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb603-5"><a href="ADDTESTS.html#cb603-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Bootstrap sampling of difference in variances&quot;</span>,</span>
+<span id="cb603-6"><a href="ADDTESTS.html#cb603-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Difference in variances&quot;</span>)</span></code></pre></div>
 <p><img src="24-Additional-Hypothesis-Tests-Solutions_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 
 </div>

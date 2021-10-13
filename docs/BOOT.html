@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-09-21" />
+<meta name="date" content="2021-10-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -540,16 +540,16 @@ div.csl-indent {
 <ol style="list-style-type: lower-alpha">
 <li>Load the data and plot a histogram.</li>
 </ol>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="BOOT.html#cb505-1" aria-hidden="true" tabindex="-1"></a>poker<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;data/poker.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="BOOT.html#cb506-1" aria-hidden="true" tabindex="-1"></a>poker <span class="sc">%&gt;%</span></span>
-<span id="cb506-2"><a href="BOOT.html#cb506-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>winnings,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb506-3"><a href="BOOT.html#cb506-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb506-4"><a href="BOOT.html#cb506-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Winnings&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="BOOT.html#cb509-1" aria-hidden="true" tabindex="-1"></a>poker<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;data/poker.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="BOOT.html#cb510-1" aria-hidden="true" tabindex="-1"></a>poker <span class="sc">%&gt;%</span></span>
+<span id="cb510-2"><a href="BOOT.html#cb510-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>winnings,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb510-3"><a href="BOOT.html#cb510-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb510-4"><a href="BOOT.html#cb510-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Winnings&quot;</span>)</span></code></pre></div>
 <p><img src="23-Bootstrap-Solutions_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Find the summary statistics.</li>
 </ol>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="BOOT.html#cb507-1" aria-hidden="true" tabindex="-1"></a><span class="fu">favstats</span>(<span class="sc">~</span>winnings,<span class="at">data=</span>poker)</span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="BOOT.html#cb511-1" aria-hidden="true" tabindex="-1"></a><span class="fu">favstats</span>(<span class="sc">~</span>winnings,<span class="at">data=</span>poker)</span></code></pre></div>
 <pre><code>##    min   Q1 median  Q3  max  mean       sd  n missing
 ##  -1000 -187     11 289 3712 90.08 703.6835 50       0</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
@@ -557,30 +557,30 @@ div.csl-indent {
 <span class="math display">\[mad = \sum_{i=1}^{n}\frac{\left| x_{i} - \bar{x} \right|}{n}\]</span>
 Write a function and find the <em>MAD</em> of the data.</li>
 </ol>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="BOOT.html#cb509-1" aria-hidden="true" tabindex="-1"></a>mad<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
-<span id="cb509-2"><a href="BOOT.html#cb509-2" aria-hidden="true" tabindex="-1"></a>  xbar<span class="ot">&lt;-</span><span class="fu">mean</span>(x)</span>
-<span id="cb509-3"><a href="BOOT.html#cb509-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="fu">abs</span>(x<span class="sc">-</span>xbar))<span class="sc">/</span><span class="fu">length</span>(x)</span>
-<span id="cb509-4"><a href="BOOT.html#cb509-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="BOOT.html#cb510-1" aria-hidden="true" tabindex="-1"></a>obs<span class="ot">&lt;-</span><span class="fu">mad</span>(poker<span class="sc">$</span>winnings)</span>
-<span id="cb510-2"><a href="BOOT.html#cb510-2" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="BOOT.html#cb513-1" aria-hidden="true" tabindex="-1"></a>mad<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
+<span id="cb513-2"><a href="BOOT.html#cb513-2" aria-hidden="true" tabindex="-1"></a>  xbar<span class="ot">&lt;-</span><span class="fu">mean</span>(x)</span>
+<span id="cb513-3"><a href="BOOT.html#cb513-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="fu">abs</span>(x<span class="sc">-</span>xbar))<span class="sc">/</span><span class="fu">length</span>(x)</span>
+<span id="cb513-4"><a href="BOOT.html#cb513-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="BOOT.html#cb514-1" aria-hidden="true" tabindex="-1"></a>obs<span class="ot">&lt;-</span><span class="fu">mad</span>(poker<span class="sc">$</span>winnings)</span>
+<span id="cb514-2"><a href="BOOT.html#cb514-2" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
 <pre><code>## [1] 394.1792</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Find the bootstrap distribution of the <em>MAD</em> using 1000 replicates.</li>
 </ol>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="BOOT.html#cb512-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1122</span>)</span>
-<span id="cb512-2"><a href="BOOT.html#cb512-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">mad</span>(<span class="fu">resample</span>(poker<span class="sc">$</span>winnings))</span></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="BOOT.html#cb516-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1122</span>)</span>
+<span id="cb516-2"><a href="BOOT.html#cb516-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">mad</span>(<span class="fu">resample</span>(poker<span class="sc">$</span>winnings))</span></code></pre></div>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Plot a histogram of the bootstrap distribution.</li>
 </ol>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="BOOT.html#cb513-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb513-2"><a href="BOOT.html#cb513-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>mad,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb513-3"><a href="BOOT.html#cb513-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb513-4"><a href="BOOT.html#cb513-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Mean absolute deviation&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="BOOT.html#cb517-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb517-2"><a href="BOOT.html#cb517-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>mad,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb517-3"><a href="BOOT.html#cb517-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb517-4"><a href="BOOT.html#cb517-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Mean absolute deviation&quot;</span>)</span></code></pre></div>
 <p><img src="23-Bootstrap-Solutions_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Report a 95% confidence interval on the MAD.</li>
 </ol>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="BOOT.html#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>mad,<span class="at">data=</span>results)</span></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="BOOT.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>mad,<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>##         lower    upper central.p
 ## 2.5% 243.9448 636.0925      0.95</code></pre>
 <ol start="7" style="list-style-type: lower-alpha">
@@ -596,37 +596,37 @@ Write a function and find the <em>MAD</em> of the data.</li>
 <li>Using the <code>HELPrct</code> data set, store the observed value of the difference of means for male and female.</li>
 </ol>
 <p>I am going to just select the two columns I need.</p>
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="BOOT.html#cb516-1" aria-hidden="true" tabindex="-1"></a>HELP_sub <span class="ot">&lt;-</span> HELPrct <span class="sc">%&gt;%</span></span>
-<span id="cb516-2"><a href="BOOT.html#cb516-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(age,sex)</span></code></pre></div>
-<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="BOOT.html#cb517-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">diffmean</span>(age<span class="sc">~</span>sex,<span class="at">data=</span>HELP_sub)</span>
-<span id="cb517-2"><a href="BOOT.html#cb517-2" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="BOOT.html#cb520-1" aria-hidden="true" tabindex="-1"></a>HELP_sub <span class="ot">&lt;-</span> HELPrct <span class="sc">%&gt;%</span></span>
+<span id="cb520-2"><a href="BOOT.html#cb520-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(age,sex)</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="BOOT.html#cb521-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">diffmean</span>(age<span class="sc">~</span>sex,<span class="at">data=</span>HELP_sub)</span>
+<span id="cb521-2"><a href="BOOT.html#cb521-2" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
 <pre><code>##   diffmean 
 ## -0.7841284</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>The null hypothesis requires the means of each group to be equal. Pick one group to adjust, either <code>male</code> or <code>female</code>. First zero the mean of the selected group by subtracting the sample mean of this group from data points only in this group. Then add the sample mean of the other group to each data point in the selected group. Store in a new object called <code>HELP_null</code>.</li>
 </ol>
 <p>This is tricky, we are doing some data wrangling here.</p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="BOOT.html#cb519-1" aria-hidden="true" tabindex="-1"></a>means<span class="ot">&lt;-</span><span class="fu">mean</span>(age<span class="sc">~</span>sex,<span class="at">data=</span>HELP_sub)</span>
-<span id="cb519-2"><a href="BOOT.html#cb519-2" aria-hidden="true" tabindex="-1"></a>means</span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="BOOT.html#cb523-1" aria-hidden="true" tabindex="-1"></a>means<span class="ot">&lt;-</span><span class="fu">mean</span>(age<span class="sc">~</span>sex,<span class="at">data=</span>HELP_sub)</span>
+<span id="cb523-2"><a href="BOOT.html#cb523-2" aria-hidden="true" tabindex="-1"></a>means</span></code></pre></div>
 <pre><code>##   female     male 
 ## 36.25234 35.46821</code></pre>
-<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="BOOT.html#cb521-1" aria-hidden="true" tabindex="-1"></a>means[<span class="st">&#39;female&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="BOOT.html#cb525-1" aria-hidden="true" tabindex="-1"></a>means[<span class="st">&#39;female&#39;</span>]</span></code></pre></div>
 <pre><code>##   female 
 ## 36.25234</code></pre>
 <p>Let’s get all the female observations and adjust the mean to equal that of the males.</p>
-<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="BOOT.html#cb523-1" aria-hidden="true" tabindex="-1"></a>H_female <span class="ot">&lt;-</span> HELP_sub <span class="sc">%&gt;%</span></span>
-<span id="cb523-2"><a href="BOOT.html#cb523-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex<span class="sc">==</span><span class="st">&quot;female&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb523-3"><a href="BOOT.html#cb523-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age=</span>age<span class="sc">-</span>means[<span class="st">&#39;female&#39;</span>]<span class="sc">+</span>means[<span class="st">&#39;male&#39;</span>])</span></code></pre></div>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="BOOT.html#cb524-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="sc">~</span>age,<span class="at">data=</span>H_female)</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="BOOT.html#cb527-1" aria-hidden="true" tabindex="-1"></a>H_female <span class="ot">&lt;-</span> HELP_sub <span class="sc">%&gt;%</span></span>
+<span id="cb527-2"><a href="BOOT.html#cb527-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex<span class="sc">==</span><span class="st">&quot;female&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb527-3"><a href="BOOT.html#cb527-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age=</span>age<span class="sc">-</span>means[<span class="st">&#39;female&#39;</span>]<span class="sc">+</span>means[<span class="st">&#39;male&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="BOOT.html#cb528-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="sc">~</span>age,<span class="at">data=</span>H_female)</span></code></pre></div>
 <pre><code>## [1] 35.46821</code></pre>
 <p>Combine back into one data set.</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="BOOT.html#cb526-1" aria-hidden="true" tabindex="-1"></a>HELP_sub_new<span class="ot">&lt;-</span>HELP_sub <span class="sc">%&gt;%</span></span>
-<span id="cb526-2"><a href="BOOT.html#cb526-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex<span class="sc">==</span><span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb526-3"><a href="BOOT.html#cb526-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(H_female)</span></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="BOOT.html#cb530-1" aria-hidden="true" tabindex="-1"></a>HELP_sub_new<span class="ot">&lt;-</span>HELP_sub <span class="sc">%&gt;%</span></span>
+<span id="cb530-2"><a href="BOOT.html#cb530-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex<span class="sc">==</span><span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb530-3"><a href="BOOT.html#cb530-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(H_female)</span></code></pre></div>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Run <code>favstats()</code> to check that the means are equal.</li>
 </ol>
-<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="BOOT.html#cb527-1" aria-hidden="true" tabindex="-1"></a><span class="fu">favstats</span>(age<span class="sc">~</span>sex,<span class="at">data=</span>HELP_sub_new)</span></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="BOOT.html#cb531-1" aria-hidden="true" tabindex="-1"></a><span class="fu">favstats</span>(age<span class="sc">~</span>sex,<span class="at">data=</span>HELP_sub_new)</span></code></pre></div>
 <pre><code>##      sex      min       Q1   median       Q3      max     mean       sd   n
 ## 1 female 20.21587 30.21587 34.21587 39.71587 57.21587 35.46821 7.584858 107
 ## 2   male 19.00000 30.00000 35.00000 40.00000 60.00000 35.46821 7.750110 346
@@ -636,22 +636,22 @@ Write a function and find the <em>MAD</em> of the data.</li>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>On this new adjusted data set, generate a bootstrap distribution of the difference in sample means.</li>
 </ol>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="BOOT.html#cb529-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1159</span>)</span>
-<span id="cb529-2"><a href="BOOT.html#cb529-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">diffmean</span>(age<span class="sc">~</span>sex,<span class="at">data=</span><span class="fu">resample</span>(HELP_sub_new))</span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="BOOT.html#cb533-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1159</span>)</span>
+<span id="cb533-2"><a href="BOOT.html#cb533-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">diffmean</span>(age<span class="sc">~</span>sex,<span class="at">data=</span><span class="fu">resample</span>(HELP_sub_new))</span></code></pre></div>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Plot the bootstrap distribution and a line at the observed difference in sample means.</li>
 </ol>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="BOOT.html#cb530-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb530-2"><a href="BOOT.html#cb530-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>diffmean,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb530-3"><a href="BOOT.html#cb530-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept=</span>obs) <span class="sc">%&gt;%</span></span>
-<span id="cb530-4"><a href="BOOT.html#cb530-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb530-5"><a href="BOOT.html#cb530-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Difference in means&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="BOOT.html#cb534-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb534-2"><a href="BOOT.html#cb534-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>diffmean,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb534-3"><a href="BOOT.html#cb534-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept=</span>obs) <span class="sc">%&gt;%</span></span>
+<span id="cb534-4"><a href="BOOT.html#cb534-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb534-5"><a href="BOOT.html#cb534-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Difference in means&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: geom_vline(): Ignoring `mapping` because `xintercept` was provided.</code></pre>
 <p><img src="23-Bootstrap-Solutions_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Find a p-value.</li>
 </ol>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="BOOT.html#cb532-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">prop1</span>(<span class="sc">~</span>(diffmean<span class="sc">&lt;=</span>obs),<span class="at">data=</span>results)</span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="BOOT.html#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">prop1</span>(<span class="sc">~</span>(diffmean<span class="sc">&lt;=</span>obs),<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>## prop_TRUE 
 ## 0.3476523</code></pre>
 <ol start="7" style="list-style-type: lower-alpha">
@@ -664,7 +664,7 @@ Write a function and find the <em>MAD</em> of the data.</li>
 <p><strong>Paired data</strong></p>
 <p>Are textbooks actually cheaper online? Here we compare the price of textbooks at the University of California, Los Angeles’ (UCLA’s) bookstore and prices at Amazon.com. Seventy-three UCLA courses were randomly sampled in Spring 2010, representing less than 10% of all UCLA courses. When a class had multiple books, only the most expensive text was considered.</p>
 <p>The data is in the file <code>textbooks.csv</code> under the data folder.</p>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="BOOT.html#cb534-1" aria-hidden="true" tabindex="-1"></a>textbooks<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;data/textbooks.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="BOOT.html#cb538-1" aria-hidden="true" tabindex="-1"></a>textbooks<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;data/textbooks.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 73 Columns: 7</code></pre>
 <pre><code>## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -673,7 +673,7 @@ Write a function and find the <em>MAD</em> of the data.</li>
 <pre><code>## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="BOOT.html#cb538-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(textbooks)</span></code></pre></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="BOOT.html#cb542-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(textbooks)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 7
 ##   dept_abbr course isbn           ucla_new amaz_new more   diff
 ##   &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
@@ -692,21 +692,21 @@ Write a function and find the <em>MAD</em> of the data.</li>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Make a scatterplot of the UCLA price versus the Amazon price. Add a 45 degree line to the plot.</li>
 </ol>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="BOOT.html#cb540-1" aria-hidden="true" tabindex="-1"></a>textbooks <span class="sc">%&gt;%</span></span>
-<span id="cb540-2"><a href="BOOT.html#cb540-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(ucla_new<span class="sc">~</span>amaz_new) <span class="sc">%&gt;%</span></span>
-<span id="cb540-3"><a href="BOOT.html#cb540-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_abline</span>(<span class="at">slope=</span><span class="dv">1</span>,<span class="at">intercept =</span> <span class="dv">0</span>,<span class="at">color=</span><span class="st">&quot;darkblue&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb540-4"><a href="BOOT.html#cb540-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb540-5"><a href="BOOT.html#cb540-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Amazon&quot;</span>,<span class="at">y=</span><span class="st">&quot;UCLA&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="BOOT.html#cb544-1" aria-hidden="true" tabindex="-1"></a>textbooks <span class="sc">%&gt;%</span></span>
+<span id="cb544-2"><a href="BOOT.html#cb544-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(ucla_new<span class="sc">~</span>amaz_new) <span class="sc">%&gt;%</span></span>
+<span id="cb544-3"><a href="BOOT.html#cb544-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_abline</span>(<span class="at">slope=</span><span class="dv">1</span>,<span class="at">intercept =</span> <span class="dv">0</span>,<span class="at">color=</span><span class="st">&quot;darkblue&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb544-4"><a href="BOOT.html#cb544-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb544-5"><a href="BOOT.html#cb544-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Amazon&quot;</span>,<span class="at">y=</span><span class="st">&quot;UCLA&quot;</span>)</span></code></pre></div>
 <p><img src="23-Bootstrap-Solutions_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>It appears the books at the UCLA bookstore are more expensive. One way to test this is with a regression model; we will learn about in the next block.</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Make a histogram of the differences in price.</li>
 </ol>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="BOOT.html#cb541-1" aria-hidden="true" tabindex="-1"></a>textbooks <span class="sc">%&gt;%</span></span>
-<span id="cb541-2"><a href="BOOT.html#cb541-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>diff,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb541-3"><a href="BOOT.html#cb541-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb541-4"><a href="BOOT.html#cb541-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Distribution of price differences&quot;</span>,</span>
-<span id="cb541-5"><a href="BOOT.html#cb541-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Price difference between UCLA and Amazon&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="BOOT.html#cb545-1" aria-hidden="true" tabindex="-1"></a>textbooks <span class="sc">%&gt;%</span></span>
+<span id="cb545-2"><a href="BOOT.html#cb545-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>diff,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb545-3"><a href="BOOT.html#cb545-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb545-4"><a href="BOOT.html#cb545-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Distribution of price differences&quot;</span>,</span>
+<span id="cb545-5"><a href="BOOT.html#cb545-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Price difference between UCLA and Amazon&quot;</span>)</span></code></pre></div>
 <p><img src="23-Bootstrap-Solutions_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>The distribution is skewed.</p>
 <p>The hypotheses are:<br />
@@ -715,13 +715,13 @@ Write a function and find the <em>MAD</em> of the data.</li>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>To use a <span class="math inline">\(t\)</span> distribution, the variable <code>diff</code> has to be independent and normally distributed. Since the 73 books represent less than 10% of the population, the assumption that the random sample is independent is reasonable. Check normality using <code>qqnorsim()</code> from the <code>openintro</code> package. It generates 8 qq plots of simulated normal data that you can use to judge the <code>diff</code> variable.</li>
 </ol>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="BOOT.html#cb542-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnormsim</span>(diff,textbooks)</span></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="BOOT.html#cb546-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnormsim</span>(diff,textbooks)</span></code></pre></div>
 <p><img src="23-Bootstrap-Solutions_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>The normality assumption is suspect but we have a large sample so it should be acceptable to use the <span class="math inline">\(t\)</span>.</p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Run a <span class="math inline">\(t\)</span> test on the <code>diff</code> variable. Report the p-value and conclusion.</li>
 </ol>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="BOOT.html#cb543-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t_test</span>(<span class="sc">~</span>diff,textbooks)</span></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="BOOT.html#cb547-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t_test</span>(<span class="sc">~</span>diff,textbooks)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -734,7 +734,7 @@ Write a function and find the <em>MAD</em> of the data.</li>
 ## mean of x 
 ##  12.76164</code></pre>
 <p>We did not have to use the <code>paired</code> option since we already took the difference. Here is an example of using the <code>paired</code> option.</p>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="BOOT.html#cb545-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t_test</span>(textbooks<span class="sc">$</span>ucla_new,textbooks<span class="sc">$</span>amaz_new,<span class="at">paired=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="BOOT.html#cb549-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t_test</span>(textbooks<span class="sc">$</span>ucla_new,textbooks<span class="sc">$</span>amaz_new,<span class="at">paired=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -750,38 +750,38 @@ Write a function and find the <em>MAD</em> of the data.</li>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Create a bootstrap distribution and generate a 95% confidence interval on the mean of the differences, the <code>diff</code> column.</li>
 </ol>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="BOOT.html#cb547-1" aria-hidden="true" tabindex="-1"></a>textbooks <span class="sc">%&gt;%</span></span>
-<span id="cb547-2"><a href="BOOT.html#cb547-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">obs_diff=</span><span class="fu">mean</span>(diff))</span></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="BOOT.html#cb551-1" aria-hidden="true" tabindex="-1"></a>textbooks <span class="sc">%&gt;%</span></span>
+<span id="cb551-2"><a href="BOOT.html#cb551-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">obs_diff=</span><span class="fu">mean</span>(diff))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   obs_diff
 ##      &lt;dbl&gt;
 ## 1     12.8</code></pre>
 <p>We need to just pull the difference.</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="BOOT.html#cb549-1" aria-hidden="true" tabindex="-1"></a>obs_stat<span class="ot">&lt;-</span> textbooks <span class="sc">%&gt;%</span></span>
-<span id="cb549-2"><a href="BOOT.html#cb549-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">obs_diff=</span><span class="fu">mean</span>(diff)) <span class="sc">%&gt;%</span></span>
-<span id="cb549-3"><a href="BOOT.html#cb549-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(obs_diff)</span>
-<span id="cb549-4"><a href="BOOT.html#cb549-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb549-5"><a href="BOOT.html#cb549-5" aria-hidden="true" tabindex="-1"></a>obs_stat</span></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="BOOT.html#cb553-1" aria-hidden="true" tabindex="-1"></a>obs_stat<span class="ot">&lt;-</span> textbooks <span class="sc">%&gt;%</span></span>
+<span id="cb553-2"><a href="BOOT.html#cb553-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">obs_diff=</span><span class="fu">mean</span>(diff)) <span class="sc">%&gt;%</span></span>
+<span id="cb553-3"><a href="BOOT.html#cb553-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(obs_diff)</span>
+<span id="cb553-4"><a href="BOOT.html#cb553-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb553-5"><a href="BOOT.html#cb553-5" aria-hidden="true" tabindex="-1"></a>obs_stat</span></code></pre></div>
 <pre><code>## [1] 12.76164</code></pre>
 <p>Next a bootstrap distribution.</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="BOOT.html#cb551-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">843</span>)</span>
-<span id="cb551-2"><a href="BOOT.html#cb551-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">mean</span>(<span class="sc">~</span>diff,<span class="at">data=</span><span class="fu">resample</span>(textbooks))</span></code></pre></div>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="BOOT.html#cb552-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb552-2"><a href="BOOT.html#cb552-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_dhistogram</span>(<span class="sc">~</span>mean,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb552-3"><a href="BOOT.html#cb552-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_dist</span>(<span class="st">&quot;norm&quot;</span>,<span class="at">mean=</span><span class="fl">12.76</span>,<span class="at">sd=</span><span class="dv">14</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">72</span>),<span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb552-4"><a href="BOOT.html#cb552-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept =</span> obs_stat) <span class="sc">%&gt;%</span></span>
-<span id="cb552-5"><a href="BOOT.html#cb552-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb552-6"><a href="BOOT.html#cb552-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Sampling distribution of the mean of differences in price&quot;</span>,</span>
-<span id="cb552-7"><a href="BOOT.html#cb552-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Mean of differences in price&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="BOOT.html#cb555-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">843</span>)</span>
+<span id="cb555-2"><a href="BOOT.html#cb555-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">mean</span>(<span class="sc">~</span>diff,<span class="at">data=</span><span class="fu">resample</span>(textbooks))</span></code></pre></div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="BOOT.html#cb556-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb556-2"><a href="BOOT.html#cb556-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_dhistogram</span>(<span class="sc">~</span>mean,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb556-3"><a href="BOOT.html#cb556-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_dist</span>(<span class="st">&quot;norm&quot;</span>,<span class="at">mean=</span><span class="fl">12.76</span>,<span class="at">sd=</span><span class="dv">14</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">72</span>),<span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb556-4"><a href="BOOT.html#cb556-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept =</span> obs_stat) <span class="sc">%&gt;%</span></span>
+<span id="cb556-5"><a href="BOOT.html#cb556-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb556-6"><a href="BOOT.html#cb556-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Sampling distribution of the mean of differences in price&quot;</span>,</span>
+<span id="cb556-7"><a href="BOOT.html#cb556-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Mean of differences in price&quot;</span>)</span></code></pre></div>
 <p><img src="23-Bootstrap-Solutions_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="BOOT.html#cb553-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>mean,<span class="at">data=</span>results)</span></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="BOOT.html#cb557-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>mean,<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>##         lower    upper central.p
 ## 2.5% 9.583829 16.05705      0.95</code></pre>
 <p>Not a bad solution for this problem.</p>
 <ol start="7" style="list-style-type: lower-alpha">
 <li>If there is really no differences between book sources, the variable <code>more</code> is a binomial and under the null the probably of success is <span class="math inline">\(\pi = 0.5\)</span>. Run a hypothesis test using the variable <code>more</code>.</li>
 </ol>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="BOOT.html#cb555-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(textbooks)</span></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="BOOT.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(textbooks)</span></code></pre></div>
 <pre><code>## 
 ## categorical variables:  
 ##        name     class levels  n missing
@@ -805,7 +805,7 @@ Write a function and find the <em>MAD</em> of the data.</li>
 ## ...2       0
 ## ...3       0</code></pre>
 <p>We have 45 books that were more expensive out of the total of 73.</p>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="BOOT.html#cb557-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop_test</span>(<span class="dv">45</span>,<span class="dv">73</span>,<span class="at">p=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="BOOT.html#cb561-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop_test</span>(<span class="dv">45</span>,<span class="dv">73</span>,<span class="at">p=</span><span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test with continuity correction
 ## 
@@ -822,19 +822,19 @@ Write a function and find the <em>MAD</em> of the data.</li>
 <li>Could you use a permutation test on this example? Explain.</li>
 </ol>
 <p>Yes, but you have to be careful because you want to keep the pairing so you can’t just shuffle the names. You have to shuffle the names within the paired values. This means to simply randomly switch the names within a row. This is easier to do by just multiplying the diff column by a random choice of -1 and 1.</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="BOOT.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="at">size=</span><span class="dv">73</span>,<span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="BOOT.html#cb563-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="at">size=</span><span class="dv">73</span>,<span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##  [1]  1 -1 -1  1 -1 -1 -1  1 -1 -1  1 -1 -1  1 -1  1  1  1 -1 -1 -1 -1  1 -1 -1
 ## [26] -1 -1  1  1  1  1  1 -1  1  1  1  1  1  1 -1 -1  1  1 -1  1  1  1  1 -1 -1
 ## [51] -1 -1 -1  1 -1  1 -1 -1  1  1 -1  1  1 -1 -1 -1  1  1 -1  1 -1  1  1</code></pre>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="BOOT.html#cb561-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">406</span>)</span>
-<span id="cb561-2"><a href="BOOT.html#cb561-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">mean</span>((<span class="sc">~</span>diff<span class="sc">*</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="at">size=</span><span class="dv">73</span>,<span class="at">replace =</span> <span class="cn">TRUE</span>)),<span class="at">data=</span>textbooks)</span></code></pre></div>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="BOOT.html#cb562-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb562-2"><a href="BOOT.html#cb562-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>mean,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb562-3"><a href="BOOT.html#cb562-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb562-4"><a href="BOOT.html#cb562-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Randomization sampling distribution of mean of differences in price&quot;</span>,</span>
-<span id="cb562-5"><a href="BOOT.html#cb562-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Mean of price difference&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="BOOT.html#cb565-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">406</span>)</span>
+<span id="cb565-2"><a href="BOOT.html#cb565-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">mean</span>((<span class="sc">~</span>diff<span class="sc">*</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="at">size=</span><span class="dv">73</span>,<span class="at">replace =</span> <span class="cn">TRUE</span>)),<span class="at">data=</span>textbooks)</span></code></pre></div>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="BOOT.html#cb566-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb566-2"><a href="BOOT.html#cb566-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>mean,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb566-3"><a href="BOOT.html#cb566-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb566-4"><a href="BOOT.html#cb566-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Randomization sampling distribution of mean of differences in price&quot;</span>,</span>
+<span id="cb566-5"><a href="BOOT.html#cb566-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Mean of price difference&quot;</span>)</span></code></pre></div>
 <p><img src="23-Bootstrap-Solutions_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="BOOT.html#cb563-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop1</span>((<span class="sc">~</span>mean<span class="sc">&gt;=</span>obs_stat),<span class="at">data=</span>results)</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="BOOT.html#cb567-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop1</span>((<span class="sc">~</span>mean<span class="sc">&gt;=</span>obs_stat),<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>##   prop_TRUE 
 ## 0.000999001</code></pre>
 <p>None of the permuted values is at or greater that the observed value.</p>

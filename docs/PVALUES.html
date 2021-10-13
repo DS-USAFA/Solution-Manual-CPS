@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-09-21" />
+<meta name="date" content="2021-10-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -549,13 +549,13 @@ div.csl-indent {
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Calculate the observed statistic, pick a cell.</li>
 </ol>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="PVALUES.html#cb389-1" aria-hidden="true" tabindex="-1"></a>yawn <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/yawn.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="PVALUES.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(yawn)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="PVALUES.html#cb393-1" aria-hidden="true" tabindex="-1"></a>yawn <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/yawn.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="PVALUES.html#cb394-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(yawn)</span></code></pre></div>
 <pre><code>## Rows: 50
 ## Columns: 2
 ## $ group   &lt;chr&gt; &quot;treatment&quot;, &quot;treatment&quot;, &quot;control&quot;, &quot;treatment&quot;, &quot;treatment&quot;,…
 ## $ outcome &lt;chr&gt; &quot;no_yawn&quot;, &quot;no_yawn&quot;, &quot;no_yawn&quot;, &quot;no_yawn&quot;, &quot;no_yawn&quot;, &quot;yawn&quot;,…</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="PVALUES.html#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(yawn)</span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="PVALUES.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(yawn)</span></code></pre></div>
 <pre><code>## 
 ## categorical variables:  
 ##      name     class levels  n missing
@@ -564,7 +564,7 @@ div.csl-indent {
 ##                                    distribution
 ## 1 treatment (68%), control (32%)               
 ## 2 no_yawn (72%), yawn (28%)</code></pre>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="PVALUES.html#cb394-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(<span class="sc">~</span>outcome<span class="sc">+</span>group,<span class="at">data=</span>yawn,<span class="at">margins =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="PVALUES.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(<span class="sc">~</span>outcome<span class="sc">+</span>group,<span class="at">data=</span>yawn,<span class="at">margins =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##          group
 ## outcome   control treatment Total
 ##   no_yawn      12        24    36
@@ -575,18 +575,18 @@ div.csl-indent {
 <li>Find the p-value using the hypergeometric distribution.</li>
 </ol>
 <p>In this case we want to find <span class="math inline">\(\mbox{P}(X \leq 4)\)</span> and double it since it is a two-sided test.</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="PVALUES.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phyper</span>(<span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">34</span>,<span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="PVALUES.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phyper</span>(<span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">34</span>,<span class="dv">14</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5127818</code></pre>
 <p>Doubling this will take us above 1, which is not valid. You might have seen this when we did the randomization test for this problem in a previous lesson. Again, since the hypergeometric is not symmetrical, we can’t just double the p-value from the one-sided test. We could simply report the result as <span class="math inline">\(\approx 1\)</span>. If we look at a plot of the pmf, see the figure, you see that <span class="math inline">\(X=4\)</span> is the highest probability outcome. Thus the p-value is 1 if we sum all the values less than or equal to <span class="math inline">\(P(X=4)\)</span>.</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="PVALUES.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_dist</span>(<span class="st">&quot;hyper&quot;</span>,<span class="at">m=</span><span class="dv">16</span>,<span class="at">n=</span><span class="dv">34</span>,<span class="at">k=</span><span class="dv">14</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb398-2"><a href="PVALUES.html#cb398-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_hline</span>(<span class="at">yintercept =</span> <span class="fu">dhyper</span>(<span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">34</span>,<span class="dv">14</span>),<span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb398-3"><a href="PVALUES.html#cb398-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Hypergeometric pmf&quot;</span>,</span>
-<span id="cb398-4"><a href="PVALUES.html#cb398-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">&quot;Red line is P(X=4)&quot;</span>,</span>
-<span id="cb398-5"><a href="PVALUES.html#cb398-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">y=</span><span class="st">&quot;Probability&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb398-6"><a href="PVALUES.html#cb398-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(theme_classic)</span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="PVALUES.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_dist</span>(<span class="st">&quot;hyper&quot;</span>,<span class="at">m=</span><span class="dv">16</span>,<span class="at">n=</span><span class="dv">34</span>,<span class="at">k=</span><span class="dv">14</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb402-2"><a href="PVALUES.html#cb402-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_hline</span>(<span class="at">yintercept =</span> <span class="fu">dhyper</span>(<span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">34</span>,<span class="dv">14</span>),<span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb402-3"><a href="PVALUES.html#cb402-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Hypergeometric pmf&quot;</span>,</span>
+<span id="cb402-4"><a href="PVALUES.html#cb402-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">&quot;Red line is P(X=4)&quot;</span>,</span>
+<span id="cb402-5"><a href="PVALUES.html#cb402-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">y=</span><span class="st">&quot;Probability&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb402-6"><a href="PVALUES.html#cb402-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(theme_classic)</span></code></pre></div>
 <pre><code>## Warning: geom_hline(): Ignoring `mapping` because `yintercept` was provided.</code></pre>
 <p><img src="20-Empirical-p-values-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="PVALUES.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(<span class="fu">tally</span>(<span class="sc">~</span>group<span class="sc">+</span>outcome,<span class="at">data=</span>yawn))</span></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="PVALUES.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(<span class="fu">tally</span>(<span class="sc">~</span>group<span class="sc">+</span>outcome,<span class="at">data=</span>yawn))</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
@@ -598,18 +598,18 @@ div.csl-indent {
 ## sample estimates:
 ## odds ratio 
 ##   1.244531</code></pre>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="PVALUES.html#cb402-1" aria-hidden="true" tabindex="-1"></a>temp<span class="ot">&lt;-</span><span class="fu">dhyper</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">14</span>,<span class="dv">16</span>,<span class="dv">34</span>,<span class="dv">14</span>)</span>
-<span id="cb402-2"><a href="PVALUES.html#cb402-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(temp[temp<span class="sc">&lt;=</span><span class="fu">dhyper</span>(<span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">34</span>,<span class="dv">14</span>)])</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="PVALUES.html#cb406-1" aria-hidden="true" tabindex="-1"></a>temp<span class="ot">&lt;-</span><span class="fu">dhyper</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">14</span>,<span class="dv">16</span>,<span class="dv">34</span>,<span class="dv">14</span>)</span>
+<span id="cb406-2"><a href="PVALUES.html#cb406-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(temp[temp<span class="sc">&lt;=</span><span class="fu">dhyper</span>(<span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">34</span>,<span class="dv">14</span>)])</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Plot the the sampling distribution.</li>
 </ol>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="PVALUES.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_dist</span>(<span class="st">&quot;hyper&quot;</span>,<span class="at">m=</span><span class="dv">16</span>,<span class="at">n=</span><span class="dv">34</span>,<span class="at">k=</span><span class="dv">14</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb404-2"><a href="PVALUES.html#cb404-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept =</span><span class="dv">4</span>,<span class="at">color=</span><span class="st">&quot;red&quot;</span> ) <span class="sc">%&gt;%</span></span>
-<span id="cb404-3"><a href="PVALUES.html#cb404-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb404-4"><a href="PVALUES.html#cb404-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Hypergeometric pmf&quot;</span>,</span>
-<span id="cb404-5"><a href="PVALUES.html#cb404-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">&quot;Red line is X=4&quot;</span>,</span>
-<span id="cb404-6"><a href="PVALUES.html#cb404-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">y=</span><span class="st">&quot;Probability&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="PVALUES.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_dist</span>(<span class="st">&quot;hyper&quot;</span>,<span class="at">m=</span><span class="dv">16</span>,<span class="at">n=</span><span class="dv">34</span>,<span class="at">k=</span><span class="dv">14</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb408-2"><a href="PVALUES.html#cb408-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept =</span><span class="dv">4</span>,<span class="at">color=</span><span class="st">&quot;red&quot;</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb408-3"><a href="PVALUES.html#cb408-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb408-4"><a href="PVALUES.html#cb408-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Hypergeometric pmf&quot;</span>,</span>
+<span id="cb408-5"><a href="PVALUES.html#cb408-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">&quot;Red line is X=4&quot;</span>,</span>
+<span id="cb408-6"><a href="PVALUES.html#cb408-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">y=</span><span class="st">&quot;Probability&quot;</span>)</span></code></pre></div>
 <p><img src="20-Empirical-p-values-Solutions_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Determine the conclusion of the hypothesis test.</li>
@@ -633,34 +633,34 @@ div.csl-indent {
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Compute a test statistic.</li>
 </ol>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="PVALUES.html#cb405-1" aria-hidden="true" tabindex="-1"></a>golf_balls <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/golf_balls.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="PVALUES.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(golf_balls)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="PVALUES.html#cb409-1" aria-hidden="true" tabindex="-1"></a>golf_balls <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/golf_balls.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="PVALUES.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(golf_balls)</span></code></pre></div>
 <pre><code>## 
 ## quantitative variables:  
 ##        name   class min Q1 median Q3 max     mean       sd   n missing
 ## ...1 number numeric   1  1      2  3   4 2.366255 1.107432 486       0</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="PVALUES.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls,<span class="at">format =</span> <span class="st">&quot;proportion&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="PVALUES.html#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls,<span class="at">format =</span> <span class="st">&quot;proportion&quot;</span>)</span></code></pre></div>
 <pre><code>## number
 ##         1         2         3         4 
 ## 0.2818930 0.2839506 0.2201646 0.2139918</code></pre>
 <p>I will use the maximum deviation from the expected value</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="PVALUES.html#cb410-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls) <span class="sc">-</span><span class="fl">121.5</span>))</span>
-<span id="cb410-2"><a href="PVALUES.html#cb410-2" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="PVALUES.html#cb414-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">tally</span>(<span class="sc">~</span>number,<span class="at">data=</span>golf_balls) <span class="sc">-</span><span class="fl">121.5</span>))</span>
+<span id="cb414-2"><a href="PVALUES.html#cb414-2" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
 <pre><code>## [1] 17.5</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Determine the p-value.</li>
 </ol>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="PVALUES.html#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2517</span>)</span>
-<span id="cb412-2"><a href="PVALUES.html#cb412-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">10000</span>)<span class="sc">*</span><span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">table</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">size=</span><span class="dv">486</span>,<span class="at">replace=</span><span class="cn">TRUE</span>))<span class="sc">-</span><span class="fl">121.5</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="PVALUES.html#cb413-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb413-2"><a href="PVALUES.html#cb413-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>max,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb413-3"><a href="PVALUES.html#cb413-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept =</span> obs) <span class="sc">%&gt;%</span></span>
-<span id="cb413-4"><a href="PVALUES.html#cb413-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Sampling Distribution of Maximum Deviation&quot;</span>,</span>
-<span id="cb413-5"><a href="PVALUES.html#cb413-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">&quot;Multinomial with equal probability&quot;</span>,</span>
-<span id="cb413-6"><a href="PVALUES.html#cb413-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Range&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb413-7"><a href="PVALUES.html#cb413-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(theme_classic)</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="PVALUES.html#cb416-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2517</span>)</span>
+<span id="cb416-2"><a href="PVALUES.html#cb416-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">10000</span>)<span class="sc">*</span><span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">table</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">size=</span><span class="dv">486</span>,<span class="at">replace=</span><span class="cn">TRUE</span>))<span class="sc">-</span><span class="fl">121.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="PVALUES.html#cb417-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb417-2"><a href="PVALUES.html#cb417-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>max,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb417-3"><a href="PVALUES.html#cb417-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept =</span> obs) <span class="sc">%&gt;%</span></span>
+<span id="cb417-4"><a href="PVALUES.html#cb417-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Sampling Distribution of Maximum Deviation&quot;</span>,</span>
+<span id="cb417-5"><a href="PVALUES.html#cb417-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">&quot;Multinomial with equal probability&quot;</span>,</span>
+<span id="cb417-6"><a href="PVALUES.html#cb417-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;Range&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb417-7"><a href="PVALUES.html#cb417-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(theme_classic)</span></code></pre></div>
 <p><img src="20-Empirical-p-values-Solutions_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="PVALUES.html#cb414-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop1</span>(<span class="sc">~</span>(max<span class="sc">&gt;=</span>obs),<span class="at">data=</span>results)</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="PVALUES.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop1</span>(<span class="sc">~</span>(max<span class="sc">&gt;=</span>obs),<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>## prop_TRUE 
 ## 0.2382762</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
@@ -685,27 +685,27 @@ div.csl-indent {
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Load the data from the file “temperature.csv” and generate summary statistics and a boxplot of the temperature data. We will not be using gender or heart rate for this problem.</li>
 </ol>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="PVALUES.html#cb416-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/temperature.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="PVALUES.html#cb417-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(temperature)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="PVALUES.html#cb420-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/temperature.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="PVALUES.html#cb421-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(temperature)</span></code></pre></div>
 <pre><code>## Rows: 130
 ## Columns: 3
 ## $ temperature &lt;dbl&gt; 96.3, 96.7, 96.9, 97.0, 97.1, 97.1, 97.1, 97.2, 97.3, 97.4…
 ## $ gender      &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
 ## $ hr          &lt;dbl&gt; 70, 71, 74, 80, 73, 75, 82, 64, 69, 70, 68, 72, 78, 70, 75…</code></pre>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="PVALUES.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">favstats</span>(<span class="sc">~</span>temperature,<span class="at">data=</span>temperature)</span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="PVALUES.html#cb423-1" aria-hidden="true" tabindex="-1"></a><span class="fu">favstats</span>(<span class="sc">~</span>temperature,<span class="at">data=</span>temperature)</span></code></pre></div>
 <pre><code>##   min   Q1 median   Q3   max     mean        sd   n missing
 ##  96.3 97.8   98.3 98.7 100.8 98.24923 0.7331832 130       0</code></pre>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="PVALUES.html#cb421-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="sc">%&gt;%</span></span>
-<span id="cb421-2"><a href="PVALUES.html#cb421-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>temperature) <span class="sc">%&gt;%</span></span>
-<span id="cb421-3"><a href="PVALUES.html#cb421-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(theme_classic)</span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="PVALUES.html#cb425-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="sc">%&gt;%</span></span>
+<span id="cb425-2"><a href="PVALUES.html#cb425-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>temperature) <span class="sc">%&gt;%</span></span>
+<span id="cb425-3"><a href="PVALUES.html#cb425-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(theme_classic)</span></code></pre></div>
 <p><img src="20-Empirical-p-values-Solutions_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Compute a test statistic. We are going to help you with this part. We cannot do a randomization test since we don’t have a second variable. It would be nice to use the mean as a test statistic but we don’t yet know the sampling distribution of the sample mean.</li>
 </ol>
 <p>Let’s get clever. If the distribution of the sample is symmetric, this is an assumption but look at the boxplot and summary statistics to determine if you are comfortable with it, then under the null hypothesis the observed values should be equally likely to either be greater or less than 98.6. Thus our test statistic is the number of cases that have a positive difference between the observed value and 98.6. This will be a binomial distribution with a probability of success of 0.5. You must also account for the possibility that there are observations of 98.6 in the data.</p>
 <p>First let’s find out how many data points are equal to 98.6.</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="PVALUES.html#cb422-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="sc">%&gt;%</span></span>
-<span id="cb422-2"><a href="PVALUES.html#cb422-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(temperature<span class="sc">==</span><span class="fl">98.6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="PVALUES.html#cb426-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="sc">%&gt;%</span></span>
+<span id="cb426-2"><a href="PVALUES.html#cb426-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(temperature<span class="sc">==</span><span class="fl">98.6</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   `temperature == 98.6`     n
 ##   &lt;lgl&gt;                 &lt;int&gt;
@@ -713,9 +713,9 @@ div.csl-indent {
 ## 2 TRUE                     10</code></pre>
 <p>We have ten observations equal to 98.6, we will split this and make 5 have a positive difference and 5 have a negative difference.</p>
 <p>Next determine that number of subjects that have a positive difference.</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="PVALUES.html#cb424-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="sc">%&gt;%</span></span>
-<span id="cb424-2"><a href="PVALUES.html#cb424-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos=</span>(temperature<span class="fl">-98.6</span>)<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb424-3"><a href="PVALUES.html#cb424-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_less=</span><span class="fu">sum</span>(pos))</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="PVALUES.html#cb428-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="sc">%&gt;%</span></span>
+<span id="cb428-2"><a href="PVALUES.html#cb428-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos=</span>(temperature<span class="fl">-98.6</span>)<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb428-3"><a href="PVALUES.html#cb428-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_less=</span><span class="fu">sum</span>(pos))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   num_less
 ##      &lt;int&gt;
@@ -725,10 +725,10 @@ div.csl-indent {
 <li>Determine the p-value.</li>
 </ol>
 <p>Out of 130 subjects, 86 had a temperature less than 98.6 and 44 had a temperature greater. We can use either number to determine a p-value. If the null hypothesis were true, then the probability of 86 or more, this is more extreme under that alternative hypothesis, is</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="PVALUES.html#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pbinom</span>(<span class="dv">86</span>,<span class="dv">130</span>,.<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="PVALUES.html#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pbinom</span>(<span class="dv">86</span>,<span class="dv">130</span>,.<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 7.100214e-05</code></pre>
 <p>We could have also done 43 or less.</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="PVALUES.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">43</span>,<span class="dv">130</span>,.<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="PVALUES.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">43</span>,<span class="dv">130</span>,.<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 7.100214e-05</code></pre>
 <p>Our p-value is 0.000071.</p>
 <ol start="6" style="list-style-type: lower-alpha">

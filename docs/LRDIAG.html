@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-09-21" />
+<meta name="date" content="2021-10-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -569,15 +569,15 @@ Figure 28.1: Homework problem 1.
 <ol style="list-style-type: lower-alpha">
 <li>Obtain and interpret <span class="math inline">\(R\)</span>-squared for this model.</li>
 </ol>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="LRDIAG.html#cb648-1" aria-hidden="true" tabindex="-1"></a>bac<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;data/bac.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="LRDIAG.html#cb649-1" aria-hidden="true" tabindex="-1"></a>bac <span class="sc">%&gt;%</span></span>
-<span id="cb649-2"><a href="LRDIAG.html#cb649-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(bac<span class="sc">~</span>beers) <span class="sc">%&gt;%</span></span>
-<span id="cb649-3"><a href="LRDIAG.html#cb649-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Number of cans of beer&quot;</span>,<span class="at">y=</span><span class="st">&quot;BAC&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb649-4"><a href="LRDIAG.html#cb649-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb649-5"><a href="LRDIAG.html#cb649-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="LRDIAG.html#cb652-1" aria-hidden="true" tabindex="-1"></a>bac<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;data/bac.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="LRDIAG.html#cb653-1" aria-hidden="true" tabindex="-1"></a>bac <span class="sc">%&gt;%</span></span>
+<span id="cb653-2"><a href="LRDIAG.html#cb653-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(bac<span class="sc">~</span>beers) <span class="sc">%&gt;%</span></span>
+<span id="cb653-3"><a href="LRDIAG.html#cb653-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Number of cans of beer&quot;</span>,<span class="at">y=</span><span class="st">&quot;BAC&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb653-4"><a href="LRDIAG.html#cb653-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb653-5"><a href="LRDIAG.html#cb653-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)))</span></code></pre></div>
 <p><img src="28-Regression-Diagnostics-Solutions_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="LRDIAG.html#cb650-1" aria-hidden="true" tabindex="-1"></a>bac_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(bac<span class="sc">~</span>beers,<span class="at">data=</span>bac)</span></code></pre></div>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="LRDIAG.html#cb651-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bac_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="LRDIAG.html#cb654-1" aria-hidden="true" tabindex="-1"></a>bac_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(bac<span class="sc">~</span>beers,<span class="at">data=</span>bac)</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="LRDIAG.html#cb655-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bac_mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = bac ~ beers, data = bac)
@@ -600,12 +600,12 @@ Figure 28.1: Homework problem 1.
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Evaluate the assumptions of this model. Do we have anything to be concerned about?</li>
 </ol>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="LRDIAG.html#cb653-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bac_mod,<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="LRDIAG.html#cb657-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bac_mod,<span class="dv">1</span>)</span></code></pre></div>
 <p><img src="28-Regression-Diagnostics-Solutions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>The fit is pretty good, there is one data point that is an outlier, the student that drank 9 beers.</p>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="LRDIAG.html#cb654-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bac_mod,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="LRDIAG.html#cb658-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bac_mod,<span class="dv">2</span>)</span></code></pre></div>
 <p><img src="28-Regression-Diagnostics-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="LRDIAG.html#cb655-1" aria-hidden="true" tabindex="-1"></a>bac</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="LRDIAG.html#cb659-1" aria-hidden="true" tabindex="-1"></a>bac</span></code></pre></div>
 <pre><code>## # A tibble: 16 × 3
 ##    student beers   bac
 ##      &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
@@ -626,10 +626,10 @@ Figure 28.1: Homework problem 1.
 ## 15      15     1 0.01 
 ## 16      16     4 0.05</code></pre>
 <p>The 3rd, 7th, and 10th data points stand out. This data set is too small to make any decisions about normality. It is suspect though.</p>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="LRDIAG.html#cb657-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bac_mod,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="LRDIAG.html#cb661-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bac_mod,<span class="dv">3</span>)</span></code></pre></div>
 <p><img src="28-Regression-Diagnostics-Solutions_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>We have higher variance at the higher number of beers. Again this appears to be caused by the small number of data points and the influence of observation number 3.</p>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="LRDIAG.html#cb658-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bac_mod,<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="LRDIAG.html#cb662-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bac_mod,<span class="dv">5</span>)</span></code></pre></div>
 <p><img src="28-Regression-Diagnostics-Solutions_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>The points we’re looking for(or not looking for) are values in the upper right or lower right corners, which are outside the red dashed Cook’s distance line. These are points that would be influential in the model and removing them would likely noticeably alter the regression results. Now we see that observation 3 has extreme leverage on the model. Removing it would potentially drastically alter the model.</p>
 <p>To learn more about measures of influence, see <a href="https://cran.r-project.org/web/packages/olsrr/vignettes/influence_measures.html" class="uri">https://cran.r-project.org/web/packages/olsrr/vignettes/influence_measures.html</a></p>

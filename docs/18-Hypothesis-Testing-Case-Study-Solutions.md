@@ -190,7 +190,31 @@ results %>%
 ## 1   0.011
 ```
 
+If we wanted to use a `hypergeometric`. We could use any of the cell in the table. We will use the upper left. More extreme would be 4 or fewer in the control group being alive. We get a similar p-value.
+
+
+```r
+tally(~outcome+group,data=heart,margins = TRUE)
+```
+
+```
+##        group
+## outcome Control Treatment Total
+##   Alive       4        24    28
+##   Dead       30        45    75
+##   Total      34        69   103
+```
+
+```r
+phyper(4,34,69,28)
+```
+
+```
+## [1] 0.01039537
+```
+
+
 h. Decide if the treatment is effective.
 
-Under the independence model, only 11 out of 1000 times (1.1%) did we get a difference of 0.23 or higher between the proportions of patients that died in the control and treatment groups. Since this is a low probability, we can reject the claim of independence in favor of the alternate model. There is convincing evidence to suggest that the transplant program is defective.
+Under the independence model, only 11 out of 1000 times (1.1%) did we get a difference of 0.23 or higher between the proportions of patients that died in the control and treatment groups. Since this is a low probability, we can reject the claim of independence in favor of the alternate model. There is convincing evidence to suggest that the transplant program is effective.
 
