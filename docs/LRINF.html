@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-10-13" />
+<meta name="date" content="2021-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -545,12 +545,12 @@ div.csl-indent {
 <ol style="list-style-type: lower-alpha">
 <li>Create a scatterplot for cans of beer and blood alcohol level.</li>
 </ol>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="LRINF.html#cb640-1" aria-hidden="true" tabindex="-1"></a>bac <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/bac.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="LRINF.html#cb641-1" aria-hidden="true" tabindex="-1"></a>bac <span class="sc">%&gt;%</span></span>
-<span id="cb641-2"><a href="LRINF.html#cb641-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(bac<span class="sc">~</span>beers) <span class="sc">%&gt;%</span></span>
-<span id="cb641-3"><a href="LRINF.html#cb641-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Number of cans of beer&quot;</span>,<span class="at">y=</span><span class="st">&quot;BAC&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb641-4"><a href="LRINF.html#cb641-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb641-5"><a href="LRINF.html#cb641-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="LRINF.html#cb641-1" aria-hidden="true" tabindex="-1"></a>bac <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/bac.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="LRINF.html#cb642-1" aria-hidden="true" tabindex="-1"></a>bac <span class="sc">%&gt;%</span></span>
+<span id="cb642-2"><a href="LRINF.html#cb642-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(bac<span class="sc">~</span>beers) <span class="sc">%&gt;%</span></span>
+<span id="cb642-3"><a href="LRINF.html#cb642-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Number of cans of beer&quot;</span>,<span class="at">y=</span><span class="st">&quot;BAC&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb642-4"><a href="LRINF.html#cb642-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb642-5"><a href="LRINF.html#cb642-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)))</span></code></pre></div>
 <p><img src="27-Regression-Inference-Solutions_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>We put BAC as the response since it is more natural to predict BAC from the number of cans of beer consumed. Also notice that the number of cans of beers is really a discrete variable as we can only have whole numbers.</p>
 <ol start="2" style="list-style-type: lower-alpha">
@@ -560,8 +560,8 @@ div.csl-indent {
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Write the equation of the regression line. Interpret the slope and intercept in context.</li>
 </ol>
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="LRINF.html#cb642-1" aria-hidden="true" tabindex="-1"></a>bac_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(bac<span class="sc">~</span>beers,<span class="at">data=</span>bac)</span></code></pre></div>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="LRINF.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bac_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="LRINF.html#cb643-1" aria-hidden="true" tabindex="-1"></a>bac_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(bac<span class="sc">~</span>beers,<span class="at">data=</span>bac)</span></code></pre></div>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="LRINF.html#cb644-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bac_mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = bac ~ beers, data = bac)
@@ -593,7 +593,7 @@ Slope: For each additional can of beer consumed, the model predicts an additiona
 <li>Build a 95% confidence interval for the slope and interpret it in the context of your hypothesis test from part d. </li>
 </ol>
 <p>We need a lower confidence bound since the alternative is <span class="math inline">\(\beta_1 &gt; 0\)</span>. For a 95% lower confidence bound, we need at 90% confidence interval and then just ignore the upper value.</p>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="LRINF.html#cb645-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(bac_mod,<span class="at">level=</span><span class="fl">0.9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="LRINF.html#cb646-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(bac_mod,<span class="at">level=</span><span class="fl">0.9</span>)</span></code></pre></div>
 <pre><code>##                     5 %        95 %
 ## (Intercept) -0.03495916 0.009557957
 ## beers        0.01373362 0.022193906</code></pre>
@@ -605,27 +605,27 @@ Slope: For each additional can of beer consumed, the model predicts an additiona
 <ol start="7" style="list-style-type: lower-alpha">
 <li>Predict the average BAC after two beers and build a 90% confidence interval around that prediction.</li>
 </ol>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="LRINF.html#cb647-1" aria-hidden="true" tabindex="-1"></a>new_bac <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">beers=</span><span class="dv">2</span>)</span>
-<span id="cb647-2"><a href="LRINF.html#cb647-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(bac_mod, <span class="at">newdata =</span> new_bac, <span class="at">interval =</span> <span class="st">&#39;confidence&#39;</span>,<span class="at">level=</span><span class="fl">0.9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="LRINF.html#cb648-1" aria-hidden="true" tabindex="-1"></a>new_bac <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">beers=</span><span class="dv">2</span>)</span>
+<span id="cb648-2"><a href="LRINF.html#cb648-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(bac_mod, <span class="at">newdata =</span> new_bac, <span class="at">interval =</span> <span class="st">&#39;confidence&#39;</span>,<span class="at">level=</span><span class="fl">0.9</span>)</span></code></pre></div>
 <pre><code>##          fit         lwr       upr
 ## 1 0.02322692 0.008308537 0.0381453</code></pre>
 <ol start="8" style="list-style-type: lower-alpha">
 <li>Repeat except build a 90% prediction interval and interpret.</li>
 </ol>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="LRINF.html#cb649-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(bac_mod, <span class="at">newdata =</span> new_bac, <span class="at">interval =</span> <span class="st">&#39;prediction&#39;</span>,<span class="at">level=</span><span class="fl">0.9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="LRINF.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(bac_mod, <span class="at">newdata =</span> new_bac, <span class="at">interval =</span> <span class="st">&#39;prediction&#39;</span>,<span class="at">level=</span><span class="fl">0.9</span>)</span></code></pre></div>
 <pre><code>##          fit        lwr        upr
 ## 1 0.02322692 -0.0157444 0.06219824</code></pre>
 <p>We are 90% confident that the BAC of a student who has two beers will be between -.016 and 0.062. Notice that this interval contains an unrealistic level of BAC for the lower limit. If you were briefing this you would make sure to note this. This is because we are using a model based on the normal distribution. A bootstrap may not have this problem. If you truncate the lower level to 0, you have to be careful about claiming 90% coverage.</p>
 <ol style="list-style-type: lower-roman">
 <li>Plot the data points with a regression line, confidence band, and prediction band.</li>
 </ol>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="LRINF.html#cb651-1" aria-hidden="true" tabindex="-1"></a>bac <span class="sc">%&gt;%</span></span>
-<span id="cb651-2"><a href="LRINF.html#cb651-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(bac<span class="sc">~</span>beers) <span class="sc">%&gt;%</span></span>
-<span id="cb651-3"><a href="LRINF.html#cb651-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Number of cans of beers&quot;</span>,<span class="at">y=</span><span class="st">&quot;BAC&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb651-4"><a href="LRINF.html#cb651-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_lm</span>(<span class="at">stat=</span><span class="st">&quot;lm&quot;</span>,<span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb651-5"><a href="LRINF.html#cb651-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_lm</span>(<span class="at">stat=</span><span class="st">&quot;lm&quot;</span>,<span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb651-6"><a href="LRINF.html#cb651-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb651-7"><a href="LRINF.html#cb651-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="LRINF.html#cb652-1" aria-hidden="true" tabindex="-1"></a>bac <span class="sc">%&gt;%</span></span>
+<span id="cb652-2"><a href="LRINF.html#cb652-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(bac<span class="sc">~</span>beers) <span class="sc">%&gt;%</span></span>
+<span id="cb652-3"><a href="LRINF.html#cb652-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Number of cans of beers&quot;</span>,<span class="at">y=</span><span class="st">&quot;BAC&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb652-4"><a href="LRINF.html#cb652-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_lm</span>(<span class="at">stat=</span><span class="st">&quot;lm&quot;</span>,<span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb652-5"><a href="LRINF.html#cb652-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_lm</span>(<span class="at">stat=</span><span class="st">&quot;lm&quot;</span>,<span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb652-6"><a href="LRINF.html#cb652-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb652-7"><a href="LRINF.html#cb652-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)))</span></code></pre></div>
 <p><img src="27-Regression-Inference-Solutions_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="problem-3-19" class="section level3" number="27.2.3">

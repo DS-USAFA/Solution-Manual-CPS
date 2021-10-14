@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-10-13" />
+<meta name="date" content="2021-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -541,10 +541,10 @@ div.csl-indent {
 <ol style="list-style-type: lower-alpha">
 <li>Explore the data by making histograms of the quantitative variables, and bar charts of the discrete variables. Are there any outliers that are likely to have a very large influence on the logistic regression model?</li>
 </ol>
-<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="LOGREG.html#cb717-1" aria-hidden="true" tabindex="-1"></a>possum <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/possum.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb717-2"><a href="LOGREG.html#cb717-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pop,sex,head_l,skull_w,total_l,tail_l) <span class="sc">%&gt;%</span></span>
-<span id="cb717-3"><a href="LOGREG.html#cb717-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop=</span><span class="fu">factor</span>(pop),<span class="at">sex=</span><span class="fu">factor</span>(sex))</span></code></pre></div>
-<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="LOGREG.html#cb718-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(possum)</span></code></pre></div>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="LOGREG.html#cb718-1" aria-hidden="true" tabindex="-1"></a>possum <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/possum.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb718-2"><a href="LOGREG.html#cb718-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pop,sex,head_l,skull_w,total_l,tail_l) <span class="sc">%&gt;%</span></span>
+<span id="cb718-3"><a href="LOGREG.html#cb718-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop=</span><span class="fu">factor</span>(pop),<span class="at">sex=</span><span class="fu">factor</span>(sex))</span></code></pre></div>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="LOGREG.html#cb719-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(possum)</span></code></pre></div>
 <pre><code>## 
 ## categorical variables:  
 ##   name  class levels   n missing                                  distribution
@@ -562,41 +562,41 @@ div.csl-indent {
 ## ...2       0
 ## ...3       0
 ## ...4       0</code></pre>
-<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="LOGREG.html#cb720-1" aria-hidden="true" tabindex="-1"></a>possum <span class="sc">%&gt;%</span></span>
-<span id="cb720-2"><a href="LOGREG.html#cb720-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_props</span>(<span class="sc">~</span>pop,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb720-3"><a href="LOGREG.html#cb720-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb720-4"><a href="LOGREG.html#cb720-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Population&quot;</span>)</span></code></pre></div>
-<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="LOGREG.html#cb721-1" aria-hidden="true" tabindex="-1"></a>possum <span class="sc">%&gt;%</span></span>
-<span id="cb721-2"><a href="LOGREG.html#cb721-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_props</span>(<span class="sc">~</span>sex,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb721-2"><a href="LOGREG.html#cb721-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_props</span>(<span class="sc">~</span>pop,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb721-3"><a href="LOGREG.html#cb721-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb721-4"><a href="LOGREG.html#cb721-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
-<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<span id="cb721-4"><a href="LOGREG.html#cb721-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Population&quot;</span>)</span></code></pre></div>
+<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="LOGREG.html#cb722-1" aria-hidden="true" tabindex="-1"></a>possum <span class="sc">%&gt;%</span></span>
-<span id="cb722-2"><a href="LOGREG.html#cb722-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>head_l) <span class="sc">%&gt;%</span></span>
-<span id="cb722-3"><a href="LOGREG.html#cb722-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>())</span></code></pre></div>
-<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<span id="cb722-2"><a href="LOGREG.html#cb722-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_props</span>(<span class="sc">~</span>sex,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb722-3"><a href="LOGREG.html#cb722-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb722-4"><a href="LOGREG.html#cb722-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
+<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="LOGREG.html#cb723-1" aria-hidden="true" tabindex="-1"></a>possum <span class="sc">%&gt;%</span></span>
-<span id="cb723-2"><a href="LOGREG.html#cb723-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>skull_w) <span class="sc">%&gt;%</span></span>
+<span id="cb723-2"><a href="LOGREG.html#cb723-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>head_l) <span class="sc">%&gt;%</span></span>
 <span id="cb723-3"><a href="LOGREG.html#cb723-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>())</span></code></pre></div>
-<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="LOGREG.html#cb724-1" aria-hidden="true" tabindex="-1"></a>possum <span class="sc">%&gt;%</span></span>
-<span id="cb724-2"><a href="LOGREG.html#cb724-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>total_l) <span class="sc">%&gt;%</span></span>
+<span id="cb724-2"><a href="LOGREG.html#cb724-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>skull_w) <span class="sc">%&gt;%</span></span>
 <span id="cb724-3"><a href="LOGREG.html#cb724-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>())</span></code></pre></div>
-<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="LOGREG.html#cb725-1" aria-hidden="true" tabindex="-1"></a>possum <span class="sc">%&gt;%</span></span>
-<span id="cb725-2"><a href="LOGREG.html#cb725-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>tail_l) <span class="sc">%&gt;%</span></span>
+<span id="cb725-2"><a href="LOGREG.html#cb725-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>total_l) <span class="sc">%&gt;%</span></span>
 <span id="cb725-3"><a href="LOGREG.html#cb725-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>())</span></code></pre></div>
+<p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="LOGREG.html#cb726-1" aria-hidden="true" tabindex="-1"></a>possum <span class="sc">%&gt;%</span></span>
+<span id="cb726-2"><a href="LOGREG.html#cb726-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(<span class="sc">~</span>tail_l) <span class="sc">%&gt;%</span></span>
+<span id="cb726-3"><a href="LOGREG.html#cb726-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>())</span></code></pre></div>
 <p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>There are some potential outliers for skull width but otherwise not much concern.</p>
-<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="LOGREG.html#cb726-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(possum[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>],<span class="at">lower.panel =</span> panel.smooth)</span></code></pre></div>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="LOGREG.html#cb727-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(possum[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>],<span class="at">lower.panel =</span> panel.smooth)</span></code></pre></div>
 <p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 We can see that <code>head_l</code> is correlated with the other three variables. This will cause some multicollinearity problems.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Build a logistic regression model with all the variable. Report a summary of the model.</li>
 </ol>
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="LOGREG.html#cb727-1" aria-hidden="true" tabindex="-1"></a>possum_mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(pop<span class="sc">==</span><span class="st">&quot;Vic&quot;</span><span class="sc">~</span>.,<span class="at">data=</span>possum,<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="LOGREG.html#cb728-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(possum_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="LOGREG.html#cb728-1" aria-hidden="true" tabindex="-1"></a>possum_mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(pop<span class="sc">==</span><span class="st">&quot;Vic&quot;</span><span class="sc">~</span>.,<span class="at">data=</span>possum,<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="LOGREG.html#cb729-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(possum_mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = pop == &quot;Vic&quot; ~ ., family = &quot;binomial&quot;, data = possum)
@@ -623,7 +623,7 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## AIC: 84.155
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="LOGREG.html#cb730-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(possum_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="LOGREG.html#cb731-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(possum_mod)</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                  2.5 %      97.5 %
 ## (Intercept) 18.8530781 64.66444839
@@ -636,8 +636,8 @@ We can see that <code>head_l</code> is correlated with the other three variables
 <li>Using the p-values decide if you want to remove a variable(S) and if so build that model.</li>
 </ol>
 <p>Let’s remove <code>head_l</code> first.</p>
-<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="LOGREG.html#cb733-1" aria-hidden="true" tabindex="-1"></a>possum_mod_red <span class="ot">&lt;-</span> <span class="fu">glm</span>(pop<span class="sc">==</span><span class="st">&quot;Vic&quot;</span><span class="sc">~</span>sex<span class="sc">+</span>skull_w<span class="sc">+</span>total_l<span class="sc">+</span>tail_l,<span class="at">data=</span>possum,<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="LOGREG.html#cb734-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(possum_mod_red)</span></code></pre></div>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="LOGREG.html#cb734-1" aria-hidden="true" tabindex="-1"></a>possum_mod_red <span class="ot">&lt;-</span> <span class="fu">glm</span>(pop<span class="sc">==</span><span class="st">&quot;Vic&quot;</span><span class="sc">~</span>sex<span class="sc">+</span>skull_w<span class="sc">+</span>total_l<span class="sc">+</span>tail_l,<span class="at">data=</span>possum,<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="LOGREG.html#cb735-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(possum_mod_red)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = pop == &quot;Vic&quot; ~ sex + skull_w + total_l + tail_l, 
@@ -668,7 +668,7 @@ We can see that <code>head_l</code> is correlated with the other three variables
 <ol start="4" style="list-style-type: lower-alpha">
 <li>For any variable you decide to remove, build a 95% confidence interval for the parameter.</li>
 </ol>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="LOGREG.html#cb736-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(possum_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="LOGREG.html#cb737-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(possum_mod)</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                  2.5 %      97.5 %
 ## (Intercept) 18.8530781 64.66444839
@@ -679,9 +679,9 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## tail_l      -2.7170468 -1.23231969</code></pre>
 <p>We are 95% confident that the true slope coefficient for <code>head_l</code> is between -0.44 and 0.108.</p>
 <p>The bootstrap is not working for this problem. It may be that we have convergence issues when we resample the data. This is a reminder that we need to be careful and not just run methods without checking results. Here is the code:</p>
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="LOGREG.html#cb739-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">952</span>)</span>
-<span id="cb739-2"><a href="LOGREG.html#cb739-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">glm</span>(pop<span class="sc">==</span><span class="st">&quot;Vic&quot;</span><span class="sc">~</span>.,<span class="at">data=</span><span class="fu">resample</span>(possum),<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="LOGREG.html#cb740-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="LOGREG.html#cb740-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">952</span>)</span>
+<span id="cb740-2"><a href="LOGREG.html#cb740-2" aria-hidden="true" tabindex="-1"></a>results<span class="ot">&lt;-</span><span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">glm</span>(pop<span class="sc">==</span><span class="st">&quot;Vic&quot;</span><span class="sc">~</span>.,<span class="at">data=</span><span class="fu">resample</span>(possum),<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="LOGREG.html#cb741-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
 <pre><code>##     Intercept          sexm        head_l       skull_w       total_l
 ## 1 -1184.61865  2.122389e+01  3.861560e+00  2.749263e+00  7.274005e+00
 ## 2  6371.55494 -1.301513e+02  1.023732e+01 -2.738815e+01 -1.076913e+01
@@ -689,13 +689,13 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## 4   -25.18662 -1.852185e+01  2.097593e+01 -1.353619e+01  1.483815e+01
 ## 5   -26.56607  9.689536e-14 -1.392739e-14  1.312559e-14  1.280398e-14
 ## 6 -1025.00035  6.159665e+01  2.526181e+01 -2.032143e+01  1.438639e+01</code></pre>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="LOGREG.html#cb742-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb742-2"><a href="LOGREG.html#cb742-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>head_l,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb742-3"><a href="LOGREG.html#cb742-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb742-4"><a href="LOGREG.html#cb742-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Bootstrap sampling distribtuion&quot;</span>,</span>
-<span id="cb742-5"><a href="LOGREG.html#cb742-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;sex paramater estimate&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb743-1"><a href="LOGREG.html#cb743-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb743-2"><a href="LOGREG.html#cb743-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>head_l,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb743-3"><a href="LOGREG.html#cb743-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb743-4"><a href="LOGREG.html#cb743-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Bootstrap sampling distribtuion&quot;</span>,</span>
+<span id="cb743-5"><a href="LOGREG.html#cb743-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;sex paramater estimate&quot;</span>)</span></code></pre></div>
 <p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb743-1"><a href="LOGREG.html#cb743-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>head_l,<span class="at">data=</span>results)</span></code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="LOGREG.html#cb744-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>head_l,<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>##          lower    upper central.p
 ## 2.5% -187.5252 63.61867      0.95</code></pre>
 <p>This interval is too large. The resampling process has too much variation in it. This could be due to the small sample size and the multicollinearity.</p>
@@ -716,8 +716,8 @@ We can see that <code>head_l</code> is correlated with the other three variables
 <li>Suppose we see a brushtail possum at a zoo in the US, and a sign says the possum had been captured in the wild in Australia, but it doesn’t say which part of Australia. However, the sign does indicate that the possum is male, its skull is about 63 mm wide, its tail is 37 cm long, and its total length is 83 cm. What is the reduced model’s computed probability that this possum is from Victoria? How confident are you in the model’s accuracy of this probability calculation?</li>
 </ol>
 <p>Let’s predict the outcome. We use <code>response</code> for the type to put the answer in the form of a probability. See the help menu on <code>predict.glm</code> for more information.</p>
-<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb745-1"><a href="LOGREG.html#cb745-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(possum_mod_red,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">sex=</span><span class="st">&quot;m&quot;</span>,<span class="at">skull_w=</span><span class="dv">63</span>,<span class="at">tail_l=</span><span class="dv">37</span>,<span class="at">total_l=</span><span class="dv">83</span>),</span>
-<span id="cb745-2"><a href="LOGREG.html#cb745-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">&quot;response&quot;</span>,<span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="LOGREG.html#cb746-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(possum_mod_red,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">sex=</span><span class="st">&quot;m&quot;</span>,<span class="at">skull_w=</span><span class="dv">63</span>,<span class="at">tail_l=</span><span class="dv">37</span>,<span class="at">total_l=</span><span class="dv">83</span>),</span>
+<span id="cb746-2"><a href="LOGREG.html#cb746-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">&quot;response&quot;</span>,<span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## $fit
 ##           1 
 ## 0.006205055 
@@ -730,7 +730,7 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## [1] 1</code></pre>
 <p>While the probability, 0.006, is very near zero, we have not run diagnostics on the model. We should also have a little skepticism that the model will hold for a possum found in a US zoo. However, it is encouraging that the possum was caught in the wild.</p>
 <p>As a rough sense of the accuracy, we will use the standard error. The errors are really binomial but we are trying to use a normal approximation. If you remember back to our block on probability, with such a low probability, this assumption of normality is suspect. However, we will use it to give us an upper bound.</p>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="LOGREG.html#cb747-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.0062</span><span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.96</span><span class="sc">*</span>.<span class="dv">008</span></span></code></pre></div>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="LOGREG.html#cb748-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.0062</span><span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.96</span><span class="sc">*</span>.<span class="dv">008</span></span></code></pre></div>
 <pre><code>## [1] -0.00948  0.02188</code></pre>
 <p>So at most, the probability of the possum being from Victoria is 2%.</p>
 </div>
@@ -753,8 +753,8 @@ We can see that <code>head_l</code> is correlated with the other three variables
 <ol style="list-style-type: lower-alpha">
 <li>Build a logistic regression model to predict <code>Acceptance</code> from <code>GPA</code> and `Sex.</li>
 </ol>
-<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb749-1"><a href="LOGREG.html#cb749-1" aria-hidden="true" tabindex="-1"></a>MedGPA <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/MedGPA.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="LOGREG.html#cb750-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(MedGPA)</span></code></pre></div>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="LOGREG.html#cb750-1" aria-hidden="true" tabindex="-1"></a>MedGPA <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/MedGPA.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="LOGREG.html#cb751-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(MedGPA)</span></code></pre></div>
 <pre><code>## Rows: 55
 ## Columns: 11
 ## $ Accept     &lt;chr&gt; &quot;D&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;D&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;,…
@@ -768,8 +768,8 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## $ BS         &lt;dbl&gt; 9, 12, 9, 10, 11, 10, 11, 9, 11, 10, 11, 8, 10, 10, 7, 10, …
 ## $ MCAT       &lt;dbl&gt; 38, 45, 33, 40, 35, 36, 40, 39, 35, 34, 39, 31, 35, 32, 32,…
 ## $ Apps       &lt;dbl&gt; 5, 3, 19, 5, 11, 5, 5, 7, 5, 11, 6, 9, 5, 8, 15, 6, 6, 1, 5…</code></pre>
-<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="LOGREG.html#cb752-1" aria-hidden="true" tabindex="-1"></a>med_mod<span class="ot">&lt;-</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>GPA<span class="sc">+</span>Sex,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)</span></code></pre></div>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="LOGREG.html#cb753-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(med_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="LOGREG.html#cb753-1" aria-hidden="true" tabindex="-1"></a>med_mod<span class="ot">&lt;-</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>GPA<span class="sc">+</span>Sex,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)</span></code></pre></div>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="LOGREG.html#cb754-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(med_mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Accept == &quot;D&quot; ~ GPA + Sex, family = binomial, data = MedGPA)
@@ -796,31 +796,31 @@ We can see that <code>head_l</code> is correlated with the other three variables
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Generate a 95% confidence interval for the coefficient associated with <code>GPA</code>.</li>
 </ol>
-<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="LOGREG.html#cb755-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(med_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="LOGREG.html#cb756-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(med_mod)</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                   2.5 %    97.5 %
 ## (Intercept)  10.0651173 35.579760
 ## GPA         -10.2977983 -3.007544
 ## SexM         -0.1720454  2.697436</code></pre>
 <p>Let’s try the bootstrap for this problem.</p>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="LOGREG.html#cb758-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">819</span>)</span>
-<span id="cb758-2"><a href="LOGREG.html#cb758-2" aria-hidden="true" tabindex="-1"></a>results_med <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>GPA<span class="sc">+</span>Sex,<span class="at">data=</span><span class="fu">resample</span>(MedGPA),<span class="at">family=</span>binomial)</span></code></pre></div>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="LOGREG.html#cb759-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">819</span>)</span>
+<span id="cb759-2"><a href="LOGREG.html#cb759-2" aria-hidden="true" tabindex="-1"></a>results_med <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>GPA<span class="sc">+</span>Sex,<span class="at">data=</span><span class="fu">resample</span>(MedGPA),<span class="at">family=</span>binomial)</span></code></pre></div>
 <pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="LOGREG.html#cb760-1" aria-hidden="true" tabindex="-1"></a>results_med <span class="sc">%&gt;%</span></span>
-<span id="cb760-2"><a href="LOGREG.html#cb760-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>GPA,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb760-3"><a href="LOGREG.html#cb760-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb760-4"><a href="LOGREG.html#cb760-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Bootstrap sampling distribtuion&quot;</span>,</span>
-<span id="cb760-5"><a href="LOGREG.html#cb760-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;GPA paramater estimate&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="LOGREG.html#cb761-1" aria-hidden="true" tabindex="-1"></a>results_med <span class="sc">%&gt;%</span></span>
+<span id="cb761-2"><a href="LOGREG.html#cb761-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>GPA,<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb761-3"><a href="LOGREG.html#cb761-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_bw</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb761-4"><a href="LOGREG.html#cb761-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Bootstrap sampling distribtuion&quot;</span>,</span>
+<span id="cb761-5"><a href="LOGREG.html#cb761-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="st">&quot;GPA paramater estimate&quot;</span>)</span></code></pre></div>
 <p><img src="31-Logistic-Regression-Solutions_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="LOGREG.html#cb761-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>GPA,<span class="at">data=</span>results_med)</span></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="LOGREG.html#cb762-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>GPA,<span class="at">data=</span>results_med)</span></code></pre></div>
 <pre><code>##         lower     upper central.p
 ## 2.5% -14.2047 -3.213036      0.95</code></pre>
 <p>This is not so bad. It appears that the distribution of <code>GPA</code> is skewed to the left.</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Fit a model with a polynomial of degree 2 in the <code>GPA</code>. Drop <code>Sex</code> from the model. Does a quadratic fit improve the model?</li>
 </ol>
-<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="LOGREG.html#cb763-1" aria-hidden="true" tabindex="-1"></a>med_mod2<span class="ot">&lt;-</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span><span class="fu">poly</span>(GPA,<span class="dv">2</span>),<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)</span></code></pre></div>
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="LOGREG.html#cb764-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(med_mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="LOGREG.html#cb764-1" aria-hidden="true" tabindex="-1"></a>med_mod2<span class="ot">&lt;-</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span><span class="fu">poly</span>(GPA,<span class="dv">2</span>),<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)</span></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="LOGREG.html#cb765-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(med_mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Accept == &quot;D&quot; ~ poly(GPA, 2), family = binomial, 
@@ -849,21 +849,21 @@ We can see that <code>head_l</code> is correlated with the other three variables
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Fit a model with just <code>GPA</code> and interpret the coefficient.</li>
 </ol>
-<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="LOGREG.html#cb766-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>GPA,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial))</span></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="LOGREG.html#cb767-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>GPA,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial))</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   term        estimate std.error statistic  p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 (Intercept)    19.2       5.63      3.41 0.000644
 ## 2 GPA            -5.45      1.58     -3.45 0.000553</code></pre>
-<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="LOGREG.html#cb768-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.454166</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb769-1"><a href="LOGREG.html#cb769-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.454166</span>)</span></code></pre></div>
 <pre><code>## [1] 0.004278444</code></pre>
 <p>An increase of 1 in a student’s GPA decreases the odds of being denied acceptance by 0.00428. Remember that this is not a probability. As a reminder an odds of <span class="math inline">\(\frac{1}{2}\)</span> means the probability of success is <span class="math inline">\(\frac{1}{3}\)</span>. An odds of 1 means a probability of success of <span class="math inline">\(\frac{1}{2}\)</span>. Assume the initial odds are 1 if the odds are now 0.00428 smaller, then the probability of success is <span class="math inline">\(\frac{428}{10428}\)</span> or 0.04. The probability decreased by an order of magnitude.</p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Try to add different predictors to come up with your best model. Do not use Acceptance and MCAT in the model.</li>
 </ol>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="LOGREG.html#cb770-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
-<span id="cb770-2"><a href="LOGREG.html#cb770-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
-<span id="cb770-3"><a href="LOGREG.html#cb770-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb771-1"><a href="LOGREG.html#cb771-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
+<span id="cb771-2"><a href="LOGREG.html#cb771-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
+<span id="cb771-3"><a href="LOGREG.html#cb771-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
 <pre><code>## # A tibble: 9 × 3
 ##   term        p.value  p.adj
 ##   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
@@ -877,9 +877,9 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## 8 BS          0.00490 0.0392
 ## 9 Apps        0.728   1</code></pre>
 <p>Let’s take out <code>VR</code>.</p>
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="LOGREG.html#cb772-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
-<span id="cb772-2"><a href="LOGREG.html#cb772-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
-<span id="cb772-3"><a href="LOGREG.html#cb772-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb773-1"><a href="LOGREG.html#cb773-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
+<span id="cb773-2"><a href="LOGREG.html#cb773-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
+<span id="cb773-3"><a href="LOGREG.html#cb773-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 3
 ##   term        p.value  p.adj
 ##   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
@@ -892,9 +892,9 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## 7 BS          0.00476 0.0333
 ## 8 Apps        0.742   0.742</code></pre>
 <p>Now let’s take out <code>Apps</code>.</p>
-<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="LOGREG.html#cb774-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR<span class="sc">-</span>Apps,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
-<span id="cb774-2"><a href="LOGREG.html#cb774-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
-<span id="cb774-3"><a href="LOGREG.html#cb774-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb775-1"><a href="LOGREG.html#cb775-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR<span class="sc">-</span>Apps,<span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
+<span id="cb775-2"><a href="LOGREG.html#cb775-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
+<span id="cb775-3"><a href="LOGREG.html#cb775-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
 <pre><code>## # A tibble: 7 × 3
 ##   term        p.value  p.adj
 ##   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
@@ -906,10 +906,10 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## 6 WS          0.0385  0.133 
 ## 7 BS          0.00477 0.0286</code></pre>
 <p>Next, let’s remove <code>BCPM</code>.</p>
-<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="LOGREG.html#cb776-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR<span class="sc">-</span>Apps<span class="sc">-</span>BCPM,</span>
-<span id="cb776-2"><a href="LOGREG.html#cb776-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
-<span id="cb776-3"><a href="LOGREG.html#cb776-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
-<span id="cb776-4"><a href="LOGREG.html#cb776-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="LOGREG.html#cb777-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR<span class="sc">-</span>Apps<span class="sc">-</span>BCPM,</span>
+<span id="cb777-2"><a href="LOGREG.html#cb777-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
+<span id="cb777-3"><a href="LOGREG.html#cb777-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
+<span id="cb777-4"><a href="LOGREG.html#cb777-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##   term        p.value   p.adj
 ##   &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;
@@ -920,10 +920,10 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## 5 WS          0.0401  0.0901 
 ## 6 BS          0.00537 0.0269</code></pre>
 <p>Now <code>WS</code>.</p>
-<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="LOGREG.html#cb778-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR<span class="sc">-</span>Apps<span class="sc">-</span>BCPM<span class="sc">-</span>WS,</span>
-<span id="cb778-2"><a href="LOGREG.html#cb778-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
-<span id="cb778-3"><a href="LOGREG.html#cb778-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
-<span id="cb778-4"><a href="LOGREG.html#cb778-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="LOGREG.html#cb779-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR<span class="sc">-</span>Apps<span class="sc">-</span>BCPM<span class="sc">-</span>WS,</span>
+<span id="cb779-2"><a href="LOGREG.html#cb779-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
+<span id="cb779-3"><a href="LOGREG.html#cb779-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
+<span id="cb779-4"><a href="LOGREG.html#cb779-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 3
 ##   term         p.value   p.adj
 ##   &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;
@@ -933,10 +933,10 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## 4 PS          0.0634   0.0732 
 ## 5 BS          0.0100   0.0401</code></pre>
 <p>Maybe <code>PS</code>.</p>
-<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="LOGREG.html#cb780-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR<span class="sc">-</span>Apps<span class="sc">-</span>BCPM<span class="sc">-</span>WS<span class="sc">-</span>PS,</span>
-<span id="cb780-2"><a href="LOGREG.html#cb780-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
-<span id="cb780-3"><a href="LOGREG.html#cb780-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
-<span id="cb780-4"><a href="LOGREG.html#cb780-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="LOGREG.html#cb781-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>.<span class="sc">-</span>Acceptance<span class="sc">-</span>MCAT<span class="sc">-</span>VR<span class="sc">-</span>Apps<span class="sc">-</span>BCPM<span class="sc">-</span>WS<span class="sc">-</span>PS,</span>
+<span id="cb781-2"><a href="LOGREG.html#cb781-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)) <span class="sc">%&gt;%</span></span>
+<span id="cb781-3"><a href="LOGREG.html#cb781-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.adj=</span><span class="fu">p.adjust</span>(p.value)) <span class="sc">%&gt;%</span></span>
+<span id="cb781-4"><a href="LOGREG.html#cb781-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term,p.value,p.adj)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 3
 ##   term         p.value   p.adj
 ##   &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;
@@ -948,9 +948,9 @@ We can see that <code>head_l</code> is correlated with the other three variables
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Generate a confusion matrix for the best model you have developed.</li>
 </ol>
-<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="LOGREG.html#cb782-1" aria-hidden="true" tabindex="-1"></a>med_mod2<span class="ot">&lt;-</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>Sex<span class="sc">+</span>GPA<span class="sc">+</span>BS,</span>
-<span id="cb782-2"><a href="LOGREG.html#cb782-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)</span></code></pre></div>
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="LOGREG.html#cb783-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(med_mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="LOGREG.html#cb783-1" aria-hidden="true" tabindex="-1"></a>med_mod2<span class="ot">&lt;-</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>Sex<span class="sc">+</span>GPA<span class="sc">+</span>BS,</span>
+<span id="cb783-2"><a href="LOGREG.html#cb783-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MedGPA,<span class="at">family=</span>binomial)</span></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="LOGREG.html#cb784-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(med_mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Accept == &quot;D&quot; ~ Sex + GPA + BS, family = binomial, 
@@ -976,11 +976,11 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## AIC: 48.835
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="LOGREG.html#cb785-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(med_mod2,<span class="at">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb785-2"><a href="LOGREG.html#cb785-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">actual=</span><span class="fu">starts_with</span>(<span class="st">&#39;Accept ==&#39;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb785-3"><a href="LOGREG.html#cb785-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">result=</span><span class="fu">as.integer</span>(.fitted<span class="sc">&gt;</span><span class="fl">0.5</span>),</span>
-<span id="cb785-4"><a href="LOGREG.html#cb785-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">actual=</span><span class="fu">as.integer</span>(actual)) <span class="sc">%&gt;%</span></span>
-<span id="cb785-5"><a href="LOGREG.html#cb785-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb786-1"><a href="LOGREG.html#cb786-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(med_mod2,<span class="at">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb786-2"><a href="LOGREG.html#cb786-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">actual=</span><span class="fu">starts_with</span>(<span class="st">&#39;Accept ==&#39;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb786-3"><a href="LOGREG.html#cb786-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">result=</span><span class="fu">as.integer</span>(.fitted<span class="sc">&gt;</span><span class="fl">0.5</span>),</span>
+<span id="cb786-4"><a href="LOGREG.html#cb786-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">actual=</span><span class="fu">as.integer</span>(actual)) <span class="sc">%&gt;%</span></span>
+<span id="cb786-5"><a href="LOGREG.html#cb786-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>()</span></code></pre></div>
 <pre><code>##       actual
 ## result  0  1
 ##      0 26  4
@@ -989,10 +989,10 @@ We can see that <code>head_l</code> is correlated with the other three variables
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Find a 95% confidence interval for the probability a female student with a 3.5 GPA, a <code>BCPM</code> of 3.8, a verbal reasoning score of 10, a physical sciences score of 9, a writing sample score of 8, a biological score of 10, a MCAT score of 40, and who applied to 5 medical schools.</li>
 </ol>
-<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="LOGREG.html#cb787-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(med_mod2,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Sex=</span><span class="st">&quot;F&quot;</span>,</span>
-<span id="cb787-2"><a href="LOGREG.html#cb787-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">GPA=</span><span class="fl">3.5</span>,</span>
-<span id="cb787-3"><a href="LOGREG.html#cb787-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">BS=</span><span class="dv">10</span>),</span>
-<span id="cb787-4"><a href="LOGREG.html#cb787-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">&quot;response&quot;</span>,<span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb788-1"><a href="LOGREG.html#cb788-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(med_mod2,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Sex=</span><span class="st">&quot;F&quot;</span>,</span>
+<span id="cb788-2"><a href="LOGREG.html#cb788-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">GPA=</span><span class="fl">3.5</span>,</span>
+<span id="cb788-3"><a href="LOGREG.html#cb788-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">BS=</span><span class="dv">10</span>),</span>
+<span id="cb788-4"><a href="LOGREG.html#cb788-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">type=</span><span class="st">&quot;response&quot;</span>,<span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## $fit
 ##         1 
 ## 0.2130332 
@@ -1003,15 +1003,15 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## 
 ## $residual.scale
 ## [1] 1</code></pre>
-<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="LOGREG.html#cb789-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2130332</span><span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.96</span><span class="sc">*</span>.<span class="dv">1122277</span></span></code></pre></div>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="LOGREG.html#cb790-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2130332</span><span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.96</span><span class="sc">*</span>.<span class="dv">1122277</span></span></code></pre></div>
 <pre><code>## [1] -0.006933092  0.432999492</code></pre>
 <p>For a female students with a GPA of 3.5 and a biological score of 10, we are 95% confident that the probability of being denied acceptance to medical school is between 0 and .433.</p>
 <p>Let’s try a bootstrap.</p>
-<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="LOGREG.html#cb791-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">729</span>)</span>
-<span id="cb791-2"><a href="LOGREG.html#cb791-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>Sex<span class="sc">+</span>GPA<span class="sc">+</span>BS,</span>
-<span id="cb791-3"><a href="LOGREG.html#cb791-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data=</span><span class="fu">resample</span>(MedGPA),</span>
-<span id="cb791-4"><a href="LOGREG.html#cb791-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">family=</span>binomial)</span></code></pre></div>
-<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="LOGREG.html#cb792-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results)</span></code></pre></div>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="LOGREG.html#cb792-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">729</span>)</span>
+<span id="cb792-2"><a href="LOGREG.html#cb792-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">glm</span>(Accept<span class="sc">==</span><span class="st">&quot;D&quot;</span><span class="sc">~</span>Sex<span class="sc">+</span>GPA<span class="sc">+</span>BS,</span>
+<span id="cb792-3"><a href="LOGREG.html#cb792-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data=</span><span class="fu">resample</span>(MedGPA),</span>
+<span id="cb792-4"><a href="LOGREG.html#cb792-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">family=</span>binomial)</span></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="LOGREG.html#cb793-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results)</span></code></pre></div>
 <pre><code>##    Intercept       SexM        GPA         BS .row .index
 ## 1  204.23984  20.701630  -4.547781 -20.801516    1      1
 ## 2   16.78193   1.373795  -2.508340  -0.908112    1      2
@@ -1019,9 +1019,9 @@ We can see that <code>head_l</code> is correlated with the other three variables
 ## 4 1104.42269 105.236280 -90.461857 -86.132398    1      4
 ## 5   25.37989   1.139262  -3.729948  -1.331750    1      5
 ## 6   26.58307   3.197072  -3.426165  -1.772581    1      6</code></pre>
-<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="LOGREG.html#cb794-1" aria-hidden="true" tabindex="-1"></a>results_pred <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span> </span>
-<span id="cb794-2"><a href="LOGREG.html#cb794-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred=</span><span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(Intercept<span class="fl">+3.5</span><span class="sc">*</span>GPA<span class="sc">+</span><span class="dv">10</span><span class="sc">*</span>BS))))</span></code></pre></div>
-<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="LOGREG.html#cb795-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>pred,<span class="at">data=</span>results_pred)</span></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="LOGREG.html#cb795-1" aria-hidden="true" tabindex="-1"></a>results_pred <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span> </span>
+<span id="cb795-2"><a href="LOGREG.html#cb795-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred=</span><span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(Intercept<span class="fl">+3.5</span><span class="sc">*</span>GPA<span class="sc">+</span><span class="dv">10</span><span class="sc">*</span>BS))))</span></code></pre></div>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="LOGREG.html#cb796-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>pred,<span class="at">data=</span>results_pred)</span></code></pre></div>
 <pre><code>##            lower     upper central.p
 ## 2.5% 7.77316e-10 0.5032905      0.95</code></pre>
 <p>This is close to what we found and does not make the assumption the probability of success is normally distributed.</p>

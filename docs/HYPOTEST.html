@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-10-13" />
+<meta name="date" content="2021-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -581,12 +581,12 @@ div.csl-indent {
 <pre><code>##   channel   min      Q1 median       Q3    max   mean       sd  n missing
 ## 1   basic 6.950 8.30375  9.298 10.30000 11.016 9.2051 1.396126 10       0
 ## 2 premium 3.383 5.05250  7.715  7.95975  9.580 6.8592 2.119976 10       0</code></pre>
-<ol style="list-style-type: decimal">
+<ol style="list-style-type: lower-alpha">
 <li>State the null and alternative hypotheses.</li>
 </ol>
 <p><span class="math inline">\(H_0\)</span>: <strong>Null hypothesis</strong>. The distribution of length of commercials in premium and basic channels is the same.<br />
 <span class="math inline">\(H_A\)</span>: <strong>Alternative hypothesis</strong>. The distribution of length of commercials in premium and basic channels is different.</p>
-<ol start="2" style="list-style-type: decimal">
+<ol start="2" style="list-style-type: lower-alpha">
 <li>Compute a test statistic.</li>
 </ol>
 <p>We will use the difference in means so we can use <code>diffmeans()</code> from <code>mosiac</code>.</p>
@@ -594,7 +594,7 @@ div.csl-indent {
 <span id="cb374-2"><a href="HYPOTEST.html#cb374-2" aria-hidden="true" tabindex="-1"></a>obs</span></code></pre></div>
 <pre><code>## diffmean 
 ##  -2.3459</code></pre>
-<ol start="3" style="list-style-type: decimal">
+<ol start="3" style="list-style-type: lower-alpha">
 <li>Determine the p-value.</li>
 </ol>
 <div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="HYPOTEST.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4172</span>)</span>
@@ -613,7 +613,7 @@ div.csl-indent {
 <pre><code>##  prop_TRUE 
 ## 0.00459954</code></pre>
 <p>The p-value is much smaller! The test statistic matters in terms of efficiency of the testing procedure.</p>
-<ol start="4" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: lower-alpha">
 <li>Draw a conclusion.</li>
 </ol>
 <p>Based on our data, if there were really no difference in the distribution of lengths of commercials in 30 minute shows between basic and premium channels then the probability of finding our observed difference of means is 0.005. Since this is less than our significance level of 0.05, we reject the null in favor of the alternative that the basic channel has longer commercials.</p>
@@ -674,18 +674,22 @@ div.csl-indent {
 <div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="HYPOTEST.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop1</span>(<span class="sc">~</span>(diffprop<span class="sc">&lt;=</span>obs),<span class="at">data=</span>results)</span></code></pre></div>
 <pre><code>## prop_TRUE 
 ## 0.5140486</code></pre>
-<p>This is a large p-value.</p>
+<p>This is a large p-value. Notice that if we were doing a two-sided hypothesis test, then doubling the p-value would exceed 1. Since a p-value is a probability, this is not possible and so we would report a p-value of approximately 1. The reason is that the sampling distribution is not symmetrical. We can see this if we plot the hypergeometric distribution for this problem.</p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="HYPOTEST.html#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_dist</span>(<span class="st">&quot;hyper&quot;</span>,<span class="at">m=</span><span class="dv">16</span>,<span class="at">n=</span><span class="dv">34</span>,<span class="at">k=</span><span class="dv">14</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb392-2"><a href="HYPOTEST.html#cb392-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb392-3"><a href="HYPOTEST.html#cb392-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">14</span>))</span></code></pre></div>
+<p><img src="19-Hypothesis-Testing-Solutions_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Plot the empirical sampling distribution.</li>
 </ol>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="HYPOTEST.html#cb392-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb392-2"><a href="HYPOTEST.html#cb392-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>diffprop,</span>
-<span id="cb392-3"><a href="HYPOTEST.html#cb392-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,</span>
-<span id="cb392-4"><a href="HYPOTEST.html#cb392-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb392-5"><a href="HYPOTEST.html#cb392-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept =</span>obs ) <span class="sc">%&gt;%</span></span>
-<span id="cb392-6"><a href="HYPOTEST.html#cb392-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb392-7"><a href="HYPOTEST.html#cb392-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Test statistic&quot;</span>)</span></code></pre></div>
-<p><img src="19-Hypothesis-Testing-Solutions_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="HYPOTEST.html#cb393-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb393-2"><a href="HYPOTEST.html#cb393-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_histogram</span>(<span class="sc">~</span>diffprop,</span>
+<span id="cb393-3"><a href="HYPOTEST.html#cb393-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>,</span>
+<span id="cb393-4"><a href="HYPOTEST.html#cb393-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb393-5"><a href="HYPOTEST.html#cb393-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_vline</span>(<span class="at">xintercept =</span>obs ) <span class="sc">%&gt;%</span></span>
+<span id="cb393-6"><a href="HYPOTEST.html#cb393-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb393-7"><a href="HYPOTEST.html#cb393-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">x=</span><span class="st">&quot;Test statistic&quot;</span>)</span></code></pre></div>
+<p><img src="19-Hypothesis-Testing-Solutions_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Determine the conclusion of the hypothesis test.</li>
 </ol>

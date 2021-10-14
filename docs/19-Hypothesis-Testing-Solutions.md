@@ -84,12 +84,12 @@ favstats(length~channel,data=ads)
 ## 2 premium 3.383 5.05250  7.715  7.95975  9.580 6.8592 2.119976 10       0
 ```
 
-1. State the null and alternative hypotheses. 
+a. State the null and alternative hypotheses. 
 
 $H_0$: **Null hypothesis**. The distribution of length of commercials in premium and basic channels is the same.  
 $H_A$: **Alternative hypothesis**. The distribution of length of commercials in premium and basic channels is different.  
 
-2. Compute a test statistic.  
+b. Compute a test statistic.  
 
 We will use the difference in means so we can use `diffmeans()` from `mosiac`.
 
@@ -104,7 +104,7 @@ obs
 ##  -2.3459
 ```
 
-3. Determine the p-value.   
+c. Determine the p-value.   
 
 
 ```r
@@ -142,7 +142,7 @@ prop1(~(diffmean<=obs),data=results)
 
 The p-value is much smaller! The test statistic matters in terms of efficiency of the testing procedure.
 
-4. Draw a conclusion.    
+d. Draw a conclusion.    
 
 Based on our data, if there were really no difference in the distribution of lengths of commercials in 30 minute shows between basic and premium channels then the probability of finding our observed difference of means is 0.005. Since this is less than our significance level of 0.05, we reject the null in favor of the alternative that the basic channel has longer commercials.
 
@@ -254,7 +254,17 @@ prop1(~(diffprop<=obs),data=results)
 ## 0.5140486
 ```
 
-This is a large p-value.
+This is a large p-value. Notice that if we were doing a two-sided hypothesis test, then doubling the p-value would exceed 1. Since a p-value is a probability, this is not possible and so we would report a p-value of approximately 1. The reason is that the sampling distribution is not symmetrical. We can see this if we plot the hypergeometric distribution for this problem.
+
+
+```r
+gf_dist("hyper",m=16,n=34,k=14) %>%
+  gf_theme(theme_classic()) %>%
+  gf_refine(scale_x_continuous(breaks=0:14))
+```
+
+<img src="19-Hypothesis-Testing-Solutions_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+
 
 d. Plot the empirical sampling distribution.
 
@@ -269,7 +279,7 @@ results %>%
   gf_labs(x="Test statistic")
 ```
 
-<img src="19-Hypothesis-Testing-Solutions_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="19-Hypothesis-Testing-Solutions_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 
 e. Determine the conclusion of the hypothesis test.

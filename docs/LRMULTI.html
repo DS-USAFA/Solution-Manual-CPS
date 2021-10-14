@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-10-13" />
+<meta name="date" content="2021-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -543,8 +543,8 @@ div.csl-indent {
 <ol style="list-style-type: lower-alpha">
 <li>Build and interpret the coefficients of a model fitting <code>mpg</code> against displacement (<code>disp</code>), horsepower (<code>hp</code>), rear axle ratio (<code>drat</code>), and weight in 1000 lbs (<code>wt</code>).</li>
 </ol>
-<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="LRMULTI.html#cb704-1" aria-hidden="true" tabindex="-1"></a>cars_mod<span class="ot">&lt;-</span><span class="fu">lm</span>(mpg<span class="sc">~</span>disp<span class="sc">+</span>hp<span class="sc">+</span>drat<span class="sc">+</span>wt,<span class="at">data=</span>mtcars)</span>
-<span id="cb704-2"><a href="LRMULTI.html#cb704-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="LRMULTI.html#cb705-1" aria-hidden="true" tabindex="-1"></a>cars_mod<span class="ot">&lt;-</span><span class="fu">lm</span>(mpg<span class="sc">~</span>disp<span class="sc">+</span>hp<span class="sc">+</span>drat<span class="sc">+</span>wt,<span class="at">data=</span>mtcars)</span>
+<span id="cb705-2"><a href="LRMULTI.html#cb705-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars_mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ disp + hp + drat + wt, data = mtcars)
@@ -573,18 +573,18 @@ div.csl-indent {
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Given your model, what is the expected, average, mpg for a vehicle with a displacement of 170, a horsepower of 100, a <code>drat</code> of 3.80 and a wt of 2,900 lbs. Construct a 95% confidence interval and prediction interval for that expected mpg.</li>
 </ol>
-<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="LRMULTI.html#cb706-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(cars_mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">disp=</span><span class="dv">170</span>,<span class="at">hp=</span><span class="dv">100</span>,<span class="at">drat=</span><span class="fl">3.8</span>,<span class="at">wt=</span><span class="fl">2.9</span>),<span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="LRMULTI.html#cb707-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(cars_mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">disp=</span><span class="dv">170</span>,<span class="at">hp=</span><span class="dv">100</span>,<span class="at">drat=</span><span class="fl">3.8</span>,<span class="at">wt=</span><span class="fl">2.9</span>),<span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 22.94652 21.76569 24.12735</code></pre>
-<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="LRMULTI.html#cb708-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(cars_mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">disp=</span><span class="dv">170</span>,<span class="at">hp=</span><span class="dv">100</span>,<span class="at">drat=</span><span class="fl">3.8</span>,<span class="at">wt=</span><span class="fl">2.9</span>),<span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="LRMULTI.html#cb709-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(cars_mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">disp=</span><span class="dv">170</span>,<span class="at">hp=</span><span class="dv">100</span>,<span class="at">drat=</span><span class="fl">3.8</span>,<span class="at">wt=</span><span class="fl">2.9</span>),<span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 22.94652 17.47811 28.41494</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Repeat part (b) with a bootstrap for the confidence interval.</li>
 </ol>
-<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="LRMULTI.html#cb710-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">732</span>)</span>
-<span id="cb710-2"><a href="LRMULTI.html#cb710-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">lm</span>(mpg<span class="sc">~</span>disp<span class="sc">+</span>hp<span class="sc">+</span>drat<span class="sc">+</span>wt,<span class="at">data=</span><span class="fu">resample</span>(mtcars))</span></code></pre></div>
-<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="LRMULTI.html#cb711-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results)</span></code></pre></div>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="LRMULTI.html#cb711-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">732</span>)</span>
+<span id="cb711-2"><a href="LRMULTI.html#cb711-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>)<span class="sc">*</span><span class="fu">lm</span>(mpg<span class="sc">~</span>disp<span class="sc">+</span>hp<span class="sc">+</span>drat<span class="sc">+</span>wt,<span class="at">data=</span><span class="fu">resample</span>(mtcars))</span></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="LRMULTI.html#cb712-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results)</span></code></pre></div>
 <pre><code>##   Intercept          disp          hp      drat        wt    sigma r.squared
 ## 1  20.28185 -0.0017783926 -0.02620557 2.8897199 -2.016023 2.300320 0.8210210
 ## 2  33.66818 -0.0128734640 -0.01960700 0.3309526 -2.862143 2.102123 0.8760470
@@ -599,9 +599,9 @@ div.csl-indent {
 ## 4 38.96659     4    27    1      4
 ## 5 42.99429     4    27    1      5
 ## 6 34.84241     4    27    1      6</code></pre>
-<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="LRMULTI.html#cb713-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb713-2"><a href="LRMULTI.html#cb713-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">pred=</span>Intercept<span class="sc">+</span>disp<span class="sc">*</span><span class="dv">170</span><span class="sc">+</span>hp<span class="sc">*</span><span class="dv">100</span><span class="sc">+</span>drat<span class="sc">*</span><span class="fl">3.8</span><span class="sc">+</span>wt<span class="sc">*</span><span class="fl">2.9</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb713-3"><a href="LRMULTI.html#cb713-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>pred,<span class="at">data=</span>.)</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="LRMULTI.html#cb714-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb714-2"><a href="LRMULTI.html#cb714-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">pred=</span>Intercept<span class="sc">+</span>disp<span class="sc">*</span><span class="dv">170</span><span class="sc">+</span>hp<span class="sc">*</span><span class="dv">100</span><span class="sc">+</span>drat<span class="sc">*</span><span class="fl">3.8</span><span class="sc">+</span>wt<span class="sc">*</span><span class="fl">2.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb714-3"><a href="LRMULTI.html#cb714-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cdata</span>(<span class="sc">~</span>pred,<span class="at">data=</span>.)</span></code></pre></div>
 <pre><code>##         lower    upper central.p
 ## 2.5% 21.76703 24.15803      0.95</code></pre>
 </div>
@@ -609,7 +609,7 @@ div.csl-indent {
 <h3><span class="header-section-number">30.2.2</span> Problem 2</h3>
 <p>Is that the best model for predicting mpg? Try a variety of different models. You could explore higher order terms or even interactions. One place to start is by using the <code>pairs()</code> function on <code>mtcars</code> to plot a large pairwise scatterplot. How high could you get adjusted <span class="math inline">\(R\)</span>-squared? Keep in mind that is only one measure of fit.</p>
 <p>Answers will vary, but we tried this and got 0.8694.</p>
-<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="LRMULTI.html#cb715-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg<span class="sc">~</span>disp<span class="sc">+</span><span class="fu">I</span>(disp<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span>hp<span class="sc">+</span><span class="fu">I</span>(hp<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span>wt,<span class="at">data=</span>mtcars))</span></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="LRMULTI.html#cb716-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg<span class="sc">~</span>disp<span class="sc">+</span><span class="fu">I</span>(disp<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span>hp<span class="sc">+</span><span class="fu">I</span>(hp<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span>wt,<span class="at">data=</span>mtcars))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ disp + I(disp^2) + hp + I(hp^2) + wt, data = mtcars)
