@@ -351,14 +351,14 @@ Next determine that number of subjects that have a positive difference.
 ```r
 temperature %>%
   mutate(pos=(temperature-98.6)>0) %>%
-  summarise(num_less=sum(pos))
+  summarise(num_greater=sum(pos))
 ```
 
 ```
 ## # A tibble: 1 × 1
-##   num_less
-##      <int>
-## 1       39
+##   num_greater
+##         <int>
+## 1          39
 ```
 
 Therefore we have a total 44 subjects whose temperature was greater than 98.6 and 86 who had a temperature less than 98.6
@@ -394,5 +394,7 @@ f. Draw a conclusion.
 Based on our data, if the true mean body temperature is 98.6, then the probability of having 86 or more subjects out of 130 with temperatures below this is 0.000071. This is too unlikely so we reject the hypothesis that the average body temperature is 98.6.
 
 
-This is a clever way to test the claim. Make sure you understand how we solved. In the coming lessons we will show you alternative ways to attack the problem.
+This is a clever way to test the claim. Make sure you understand how we solved. In the coming lessons we will show you alternative ways to attack the problem. We made it into a binomial random variable. The only assumption is independence and symmetry.
+
+Notice that by descritizing this problem, we are taking information away. However, the p-value is still small.
 
