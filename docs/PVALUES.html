@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-10-15" />
+<meta name="date" content="2021-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -725,16 +725,17 @@ div.csl-indent {
 <li>Determine the p-value.</li>
 </ol>
 <p>Out of 130 subjects, 86 had a temperature less than 98.6 and 44 had a temperature greater. We can use either number to determine a p-value. If the null hypothesis were true, then the probability of 86 or more, this is more extreme under that alternative hypothesis, is</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="PVALUES.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pbinom</span>(<span class="dv">86</span>,<span class="dv">130</span>,.<span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 7.100214e-05</code></pre>
-<p>We could have also done 43 or less.</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="PVALUES.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">43</span>,<span class="dv">130</span>,.<span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 7.100214e-05</code></pre>
-<p>Our p-value is 0.000071.</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="PVALUES.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pbinom</span>(<span class="dv">85</span>,<span class="dv">130</span>,.<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.0001447744</code></pre>
+<p>We could have also done 44 or less.</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="PVALUES.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">44</span>,<span class="dv">130</span>,.<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.0001447744</code></pre>
+<p>Our p-value is 0.00014.</p>
+<p>Some other choices are to drop the 10 data points equal to 98.6. We should always be careful about deleting data. We could be extremely conservative and move all 10 points to greater than 98.6 and if we still reject, we will comfortable about our conclusion. Finally, we could randomly assign each point to one side or the other. You can check the p-values for each of these methods.</p>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Draw a conclusion.</li>
 </ol>
-<p>Based on our data, if the true mean body temperature is 98.6, then the probability of having 86 or more subjects out of 130 with temperatures below this is 0.000071. This is too unlikely so we reject the hypothesis that the average body temperature is 98.6.</p>
+<p>Based on our data, if the true mean body temperature is 98.6, then the probability of having 86 or more subjects out of 130 with temperatures below this is 0.00014. This is too unlikely so we reject the hypothesis that the average body temperature is 98.6.</p>
 <p>This is a clever way to test the claim. Make sure you understand how we solved. In the coming lessons we will show you alternative ways to attack the problem. We made it into a binomial random variable. The only assumption is independence and symmetry.</p>
 <p>Notice that by descritizing this problem, we are taking information away. However, the p-value is still small.</p>
 

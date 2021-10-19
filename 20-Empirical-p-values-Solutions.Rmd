@@ -236,20 +236,22 @@ e. Determine the p-value.
 Out of 130 subjects, 86 had a temperature less than 98.6 and 44 had a temperature greater. We can use either number to determine a p-value. If the null hypothesis were true, then the probability of 86 or more, this is more extreme under that alternative hypothesis, is
 
 ```{r}
-1-pbinom(86,130,.5)
+1-pbinom(85,130,.5)
 ```
 
-We could have also done 43 or less.
+We could have also done 44 or less.
 
 ```{r}
-pbinom(43,130,.5)
+pbinom(44,130,.5)
 ```
 
-Our p-value is 0.000071.
+Our p-value is 0.00014.
+
+Some other choices are to drop the 10 data points equal to 98.6. We should always be careful about deleting data. We could be extremely conservative and move all 10 points to greater than 98.6 and if we still reject, we will comfortable about our conclusion. Finally, we could randomly assign each point to one side or the other. You can check the p-values for each of these methods.  
 
 f. Draw a conclusion.
 
-Based on our data, if the true mean body temperature is 98.6, then the probability of having 86 or more subjects out of 130 with temperatures below this is 0.000071. This is too unlikely so we reject the hypothesis that the average body temperature is 98.6.
+Based on our data, if the true mean body temperature is 98.6, then the probability of having 86 or more subjects out of 130 with temperatures below this is 0.00014. This is too unlikely so we reject the hypothesis that the average body temperature is 98.6.
 
 
 This is a clever way to test the claim. Make sure you understand how we solved. In the coming lessons we will show you alternative ways to attack the problem. We made it into a binomial random variable. The only assumption is independence and symmetry.
