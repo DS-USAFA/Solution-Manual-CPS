@@ -111,7 +111,7 @@ We don't know without doing some math. We do know that the sample standard devia
 
 **Bootstrap hypothesis testing**  
 
-Bootstrap hypothesis testing is relatively undeveloped, and is generally not as accurate as permutation testing. Therefore in general avoid it. But for our problem in the notes, it may work. We will sample in a way that is consistent with the null hypothesis, then calculate a P-value as a tail probability like we do in permutation tests. This example does not generalize well to other applications like relative risk, correlation, regression, or categorical data.
+Bootstrap hypothesis testing is relatively undeveloped, and is generally not as accurate as permutation testing. Therefore in general avoid it. But for our problem in the reading, it may work. We will sample in a way that is consistent with the null hypothesis, then calculate a p-value as a tail probability like we do in permutation tests. This example does not generalize well to other applications like relative risk, correlation, regression, or categorical data.
 
 a. Using the `HELPrct` data set, store the observed value of the difference of means for male and female.  
 
@@ -247,7 +247,7 @@ f. Find a p-value.
 ```
 
 
-g. How does the p-value compare with those in the notes.
+g. How does the p-value compare with those in the reading.
 
 This is a similar p-value.
 

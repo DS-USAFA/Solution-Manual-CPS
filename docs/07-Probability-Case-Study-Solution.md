@@ -36,7 +36,7 @@ d. Estimate the probability of exactly two people having the same birthday.
 
 ```
 ##     prob
-## 1 0.3576
+## 1 0.3707
 ```
 
 
