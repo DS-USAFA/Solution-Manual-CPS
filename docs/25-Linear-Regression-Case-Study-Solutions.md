@@ -18,7 +18,7 @@ Choose another freedom variable and a variable you think would strongly correlat
 
 
 ```r
-hfi<-tibble(read_csv("data/hfi.csv"))
+hfi<-read_csv("data/hfi.csv")
 ```
     
 a. Produce a scatterplot of the two variables.  
