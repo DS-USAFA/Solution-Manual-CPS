@@ -576,7 +576,7 @@ div.csl-indent {
 <span id="cb672-3"><a href="LRSIM.html#cb672-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Lending Club&quot;</span>,<span class="at">subtitle=</span><span class="st">&quot;Loan amount versus Interest rate&quot;</span>,</span>
 <span id="cb672-4"><a href="LRSIM.html#cb672-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Loan Amount&quot;</span>,<span class="at">y=</span><span class="st">&quot;Interest rate (percent)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb672-5"><a href="LRSIM.html#cb672-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Fit a linear model to the data by regressing <code>interest_rate</code> on <code>loan_amount</code>. Is there a significant relationship between <code>interest_rate</code> and <code>loan_amount</code>?</li>
 </ol>
@@ -674,7 +674,7 @@ div.csl-indent {
 <li>Check the assumptions of linear regression.</li>
 </ol>
 <div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="LRSIM.html#cb692-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(int_rate_mod)</span></code></pre></div>
-<p><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-16-1.png" width="672" /><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-16-2.png" width="672" /><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-16-3.png" width="672" /><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-16-4.png" width="672" /></p>
+<p><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-16-1.png" width="672" /><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-16-2.png" width="672" /><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-16-3.png" width="672" /><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-16-4.png" width="672" /></p>
 <p>There appears to be a lack of normality as the residuals are skewed to the right, large positive residuals. The bootstrap would probably be more appropriate for this problem.</p>
 </div>
 <div id="problem-2-26" class="section level3" number="29.2.2">
@@ -688,13 +688,13 @@ div.csl-indent {
 <span id="cb693-2"><a href="LRSIM.html#cb693-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(interest_rate<span class="sc">~</span>term) <span class="sc">%&gt;%</span></span>
 <span id="cb693-3"><a href="LRSIM.html#cb693-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb693-4"><a href="LRSIM.html#cb693-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Lending Club&quot;</span>,<span class="at">x=</span><span class="st">&quot;Length of Loan&quot;</span>,<span class="at">y=</span><span class="st">&quot;Interest Rate&quot;</span>)</span></code></pre></div>
-<p><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>It looks like there is a difference in interest rate based on the length of the loan. It also appears both are skewed to the right, positive skew. Let’s plot the density and see what we find.</p>
 <div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="LRSIM.html#cb694-1" aria-hidden="true" tabindex="-1"></a>loans200 <span class="sc">%&gt;%</span></span>
 <span id="cb694-2"><a href="LRSIM.html#cb694-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_dens</span>(<span class="sc">~</span>interest_rate,<span class="at">group=</span><span class="sc">~</span>term,<span class="at">color=</span><span class="sc">~</span>term) <span class="sc">%&gt;%</span></span>
 <span id="cb694-3"><a href="LRSIM.html#cb694-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb694-4"><a href="LRSIM.html#cb694-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Lending Club&quot;</span>,<span class="at">x=</span><span class="st">&quot;Interest Rate&quot;</span>,<span class="at">y=</span><span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
-<p><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Just as we thought.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Build a linear model fitting interest rate against term. Does there appear to be a significant difference in mean interest rates by term?</li>
@@ -751,7 +751,7 @@ div.csl-indent {
 <li>Check model assumptions.</li>
 </ol>
 <div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="LRSIM.html#cb704-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(int_rate_mod2)</span></code></pre></div>
-<p><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-24-1.png" width="672" /><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-24-2.png" width="672" /><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-24-3.png" width="672" /><img src="29-Simulation-Based-Regression-Solutions_files/figure-html/unnamed-chunk-24-4.png" width="672" /></p>
+<p><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-24-1.png" width="672" /><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-24-2.png" width="672" /><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-24-3.png" width="672" /><img src="29-Simulation-Based-Linear-Regression-Solutions_files/figure-html/unnamed-chunk-24-4.png" width="672" /></p>
 <p>Because of the discrete nature of the predictor, only the first two plots are of interest. The assumption of constant variable does seem reasonable but the assumption of normally distributed errors is not. We have a positive skewness.</p>
 
 </div>

@@ -552,7 +552,7 @@ div.csl-indent {
 <span id="cb167-3"><a href="CONRANDVAR.html#cb167-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb167-4"><a href="CONRANDVAR.html#cb167-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Cumulative probability for different values of k&quot;</span>,<span class="at">x=</span><span class="st">&quot;k&quot;</span>,<span class="at">y=</span><span class="st">&quot;Cummulative Probability&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb167-5"><a href="CONRANDVAR.html#cb167-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="11-Continuous-Random-Variable-Solutions_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="11-Continuous-Random-Variables-Solutions_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Looks like <span class="math inline">\(k \approx 3\)</span> from the plot.</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="CONRANDVAR.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">uniroot</span>(<span class="cf">function</span>(x)<span class="fu">my_pdf</span>(x)<span class="sc">-</span><span class="dv">1</span>,<span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">10</span>))<span class="sc">$</span>root</span></code></pre></div>
 <pre><code>## [1] 2.999997</code></pre>
@@ -563,14 +563,14 @@ div.csl-indent {
 <span id="cb170-2"><a href="CONRANDVAR.html#cb170-2" aria-hidden="true" tabindex="-1"></a>fx<span class="ot">&lt;-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">18</span></span>
 <span id="cb170-3"><a href="CONRANDVAR.html#cb170-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_line</span>(fx<span class="sc">~</span>x,<span class="at">ylab=</span><span class="st">&quot;f(x)&quot;</span>,<span class="at">title=</span><span class="st">&quot;pdf of X&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb170-4"><a href="CONRANDVAR.html#cb170-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>())</span></code></pre></div>
-<p><img src="11-Continuous-Random-Variable-Solutions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="11-Continuous-Random-Variables-Solutions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="CONRANDVAR.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
 <span id="cb171-2"><a href="CONRANDVAR.html#cb171-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">stat_function</span>(<span class="at">fun=</span><span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">18</span>) <span class="sc">+</span></span>
 <span id="cb171-3"><a href="CONRANDVAR.html#cb171-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
 <span id="cb171-4"><a href="CONRANDVAR.html#cb171-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;f(x)&quot;</span>,<span class="at">title=</span><span class="st">&quot;pdf of X&quot;</span>)</span></code></pre></div>
-<p><img src="11-Continuous-Random-Variable-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="11-Continuous-Random-Variables-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="CONRANDVAR.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">18</span>,<span class="at">from=</span><span class="sc">-</span><span class="dv">3</span>,<span class="at">to=</span><span class="dv">3</span>,<span class="at">ylab=</span><span class="st">&quot;f(x)&quot;</span>,<span class="at">main=</span><span class="st">&quot;pdf of X&quot;</span>)</span></code></pre></div>
-<p><img src="11-Continuous-Random-Variable-Solutions_files/figure-html/hw9a-1.png" width="672" /></p>
+<p><img src="11-Continuous-Random-Variables-Solutions_files/figure-html/hw9a-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Find and plot the cdf of <span class="math inline">\(X\)</span>.
 <span class="math display">\[
@@ -584,7 +584,7 @@ F_X(x)=\left\{\begin{array}{ll} 0, &amp; x&lt;-3 \\ \frac{x^3}{54}+\frac{1}{2}, 
 <span id="cb173-2"><a href="CONRANDVAR.html#cb173-2" aria-hidden="true" tabindex="-1"></a>fx<span class="ot">&lt;-</span><span class="fu">pmin</span>(<span class="dv">1</span>,(<span class="dv">1</span><span class="sc">*</span>(x<span class="sc">&gt;=-</span><span class="dv">3</span>)<span class="sc">*</span>(x<span class="sc">^</span><span class="dv">3</span><span class="sc">/</span><span class="dv">54</span><span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)))</span>
 <span id="cb173-3"><a href="CONRANDVAR.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_line</span>(fx<span class="sc">~</span>x,<span class="at">ylab=</span><span class="st">&quot;F(x)&quot;</span>,<span class="at">title=</span><span class="st">&quot;cdf of X&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb173-4"><a href="CONRANDVAR.html#cb173-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>())</span></code></pre></div>
-<p><img src="11-Continuous-Random-Variable-Solutions_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="11-Continuous-Random-Variables-Solutions_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Find <span class="math inline">\(\mbox{P}(X&lt;1)\)</span>.
 <span class="math display">\[
@@ -624,7 +624,7 @@ F_X(x)=\left\{\begin{array}{ll} 0, &amp; x&lt;-3 \\ \frac{x^3}{54}+\frac{1}{2}, 
 <li>Find the value <span class="math inline">\(x\)</span> such that <span class="math inline">\(\mbox{P}(-x \leq X \leq x)=0.4\)</span>.</li>
 </ol>
 <p>Because this distribution is symmetric, finding <span class="math inline">\(x\)</span> is equivalent to finding <span class="math inline">\(x\)</span> such that <span class="math inline">\(\mbox{P}(X&gt;x)=0.3\)</span>. (It helps to draw a picture). Thus, we need <span class="math inline">\(x\)</span> such that <span class="math inline">\(F(x)=0.7\)</span>. Solving <span class="math inline">\(\frac{x^3}{54}+\frac{1}{2}=0.7\)</span> for <span class="math inline">\(x\)</span> yields <span class="math inline">\(x=2.210\)</span>.</p>
-<p><img src="11-Continuous-Random-Variable-Solutions_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="11-Continuous-Random-Variables-Solutions_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <ol start="8" style="list-style-type: lower-alpha">
 <li>Find the mean and variance of <span class="math inline">\(X\)</span>.
 <span class="math display">\[
@@ -649,7 +649,7 @@ F_X(x)=\left\{\begin{array}{ll} 0, &amp; x&lt;-3 \\ \frac{x^3}{54}+\frac{1}{2}, 
 <span id="cb182-2"><a href="CONRANDVAR.html#cb182-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_dens</span>(<span class="sc">~</span>cuberoot) <span class="sc">%&gt;%</span></span>
 <span id="cb182-3"><a href="CONRANDVAR.html#cb182-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_theme</span>(<span class="fu">theme_classic</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb182-4"><a href="CONRANDVAR.html#cb182-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;pdf from simulation&quot;</span>,<span class="at">x=</span><span class="st">&quot;x&quot;</span>,<span class="at">y=</span><span class="st">&quot;f(x)&quot;</span>) </span></code></pre></div>
-<p><img src="11-Continuous-Random-Variable-Solutions_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="11-Continuous-Random-Variables-Solutions_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Notice that the smoothing operation goes past the support of <span class="math inline">\(X\)</span> and thus shows a concave down curve. We could clean up by limiting the x-axis to the interval [-3,3].</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="CONRANDVAR.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(results)</span></code></pre></div>
 <pre><code>## 

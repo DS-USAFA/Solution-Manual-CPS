@@ -1,7 +1,5 @@
 # Empirical p-values {#PVALUES}
 
-\newcommand{\Prob}{\mbox{P}}
-
 ## Objective
 
 Conduct all four steps of a hypothesis test using probability models.

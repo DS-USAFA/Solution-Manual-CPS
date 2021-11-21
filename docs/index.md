@@ -17,6 +17,8 @@ cover-image: "figures/CoverSol2.png"
 description: "This is a set of solutions used for Math 377 starting in the fall of 2020."
 ---
 
+\input{latex/math-definitions.tex}
+
 # Preface {-}
 
 

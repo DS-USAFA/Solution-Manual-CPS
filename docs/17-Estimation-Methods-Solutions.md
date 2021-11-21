@@ -3,12 +3,6 @@
 
 
 
-\newcommand{\E}{\mbox{E}}
-\newcommand{\Var}{\mbox{Var}}
-\newcommand{\Cov}{\mbox{Cov}}
-\newcommand{\Prob}{\mbox{P}}
-\newcommand{\diff}{\,\mathrm{d}}
-
 
 ## Objectives
 

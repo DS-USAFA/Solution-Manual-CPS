@@ -1,12 +1,5 @@
 # Named Discrete Distributions {#DISCRETENAMED}
 
-\newcommand{\E}{\mbox{E}}
-\newcommand{\Var}{\mbox{Var}}
-\newcommand{\Cov}{\mbox{Cov}}
-\newcommand{\Prob}{\mbox{P}}
-\newcommand*\diff{\mathop{}\!\mathrm{d}}
-
-
 ## Objectives
 
 1) Recognize and setup for use common discrete distributions (Uniform, Binomial, Poisson, Hypergeometric) to include parameters, assumptions, and moments.   
