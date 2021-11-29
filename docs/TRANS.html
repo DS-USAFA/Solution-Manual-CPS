@@ -26,7 +26,7 @@
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-11-21" />
+<meta name="date" content="2021-11-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -540,7 +540,7 @@ div.csl-indent {
 <p>Let <span class="math inline">\(Y=X^2\)</span>.</p>
 <div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="TRANS.html#cb305-1" aria-hidden="true" tabindex="-1"></a>sims<span class="ot">&lt;-</span><span class="fu">rexp</span>(<span class="dv">10000</span>,<span class="fl">0.5</span>)</span>
 <span id="cb305-2"><a href="TRANS.html#cb305-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sims<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## [1] 8.05173</code></pre>
+<pre><code>## [1] 8.048079</code></pre>
 <p>So, <span class="math inline">\(g(\mbox{E}(X))=4\)</span> and <span class="math inline">\(\mbox{E}(g(X))\approx 7.84\)</span>.</p>
 </div>
 <div id="problem-2-15" class="section level3" number="16.2.2">
@@ -637,7 +637,7 @@ Figure 16.1: pdf of <span class="math inline">\(T\)</span>
 <li>We are ready. Let’s create a data frame with 10000 simulation for our time and another 10000 for our teammates. Remember to set a seed. At this point it may be hard to remember what we have done. The function we created takes as input a vector of random number from a uniform distribution and then applies the inverse cdf to generate a random sample from our given pdf.</li>
 </ol>
 <div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="TRANS.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="fu">T</span>(<span class="fu">runif</span>(<span class="dv">3</span>))</span></code></pre></div>
-<pre><code>## [1] 26.02040 10.77524 11.93820</code></pre>
+<pre><code>## [1] 19.25006 14.06111 14.81717</code></pre>
 <div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="TRANS.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1144</span>)</span>
 <span id="cb324-2"><a href="TRANS.html#cb324-2" aria-hidden="true" tabindex="-1"></a>sim_exercise <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">T1=</span><span class="fu">T</span>(<span class="fu">runif</span>(<span class="dv">10000</span>)),<span class="at">T2=</span><span class="fu">T</span>(<span class="fu">runif</span>(<span class="dv">10000</span>)))</span></code></pre></div>
 <ol start="7" style="list-style-type: lower-alpha">
