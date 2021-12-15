@@ -4,7 +4,7 @@ author:
 - Ken Horton
 - Kris Pruitt
 - Bradley Warner
-date: "2021-12-01"
+date: "2021-12-15"
 header-includes:
    - \usepackage{multirow}
    - \usepackage{multicol}
@@ -41,7 +41,7 @@ c.	Advancing practical and theoretical analytic experience and skills
 
 ## Packages
 
-These notes make use of the following packages in R **knitr** [@R-knitr], **rmarkdown** [@R-rmarkdown], **mosaic** [@R-mosaic], **mosaicCalc** [@R-mosaicCalc], **tidyverse** [@R-tidyverse], **ISLR** [@R-ISLR], **vcd** [@R-vcd], **ggplot2** [@R-ggplot2], **MASS** [@R-MASS], **openintro** [@R-openintro], **broom** [@R-broom], **infer** [@R-infer],  **ISLR** [@R-ISLR], **kableExtra** [@R-kableExtra], **DT** [@R-DT].
+These notes make use of the following packages in R **knitr** [@R-knitr], **rmarkdown** [@R-rmarkdown], **mosaic** [@R-mosaic], **mosaicCalc** [@R-mosaicCalc], **tidyverse** [@R-tidyverse], **ISLR** [@R-ISLR], **vcd** [@R-vcd], **ggplot2** [@R-ggplot2], **MASS** [@R-MASS], **openintro** [@R-openintro], **broom** [@R-broom], **infer** [@R-infer], **kableExtra** [@R-kableExtra], **DT** [@R-DT].
 
 
 <img src="./figures/by-nc-sa.png" width="44" />
@@ -53,7 +53,7 @@ This book is licensed under the [Creative Commons Attribution-NonCommercial-Shar
 
 ## File Creation Information 
 
-  * File creation date: 2021-12-01
+  * File creation date: 2021-12-15
   * R version 4.1.0 (2021-05-18)
 
 
