@@ -21,12 +21,12 @@
   <meta name="twitter:description" content="This is a set of solutions used for Math 377 starting in the fall of 2020." />
   <meta name="twitter:image" content="/figures/CoverSol2.png" />
 
+<meta name="author" content="Brianna Hitt" />
 <meta name="author" content="Ken Horton" />
-<meta name="author" content="Kris Pruitt" />
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-12-15" />
+<meta name="date" content="2021-12-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -537,18 +537,18 @@ div.csl-indent {
 <span id="cb1-3"><a href="CS1.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
 <div id="problem-1" class="section level3" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> Problem 1</h3>
-<p><strong>Stent study continued</strong> Complete a similar analysis for the stent data but this time for the one year data. In particular</p>
+<p><strong>Stent study continued</strong>. Complete a similar analysis for the stent data, but this time use the one year outcome. In particular,</p>
 <ol style="list-style-type: lower-alpha">
 <li>Read the data into your working directory.</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="CS1.html#cb2-1" aria-hidden="true" tabindex="-1"></a>stent_study <span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&#39;data/stent_study.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="CS1.html#cb2-1" aria-hidden="true" tabindex="-1"></a>stent_study <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;data/stent_study.csv&#39;</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Complete similar steps as in the class notes.<br />
 i. Use <code>inspect</code> on the data.<br />
 ii. Create a table of <code>outcome365</code> and <code>group</code>. Comment on the results.<br />
 iii. Create a barchart of the data.</li>
 </ol>
-<p>Using <code>inspect</code></p>
+<p>Using <code>inspect</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="CS1.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(stent_study)</span></code></pre></div>
 <pre><code>## 
 ## categorical variables:  
@@ -561,26 +561,26 @@ iii. Create a barchart of the data.</li>
 ## 2 no_event (89.8%), stroke (10.2%)             
 ## 3 no_event (83.8%), stroke (16.2%)</code></pre>
 <p>The table:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="CS1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(outcome365<span class="sc">~</span>group,<span class="at">data=</span>stent_study,<span class="at">format=</span><span class="st">&quot;proportion&quot;</span>,<span class="at">margins =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="CS1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(outcome365 <span class="sc">~</span> group, <span class="at">data =</span> stent_study, <span class="at">format =</span> <span class="st">&quot;proportion&quot;</span>, <span class="at">margins =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##           group
 ## outcome365   control      trmt
 ##   no_event 0.8766520 0.7991071
 ##   stroke   0.1233480 0.2008929
 ##   Total    1.0000000 1.0000000</code></pre>
-<p>Patients in the treatment group had a higher proportion of strokes than those in the control group after one year. The treatment does not appear to help the rate of strokes and in fact may hurt it.</p>
+<p>Patients in the treatment group had a higher proportion of strokes than those in the control group after one year. The treatment does not appear to help the rate of strokes and, in fact, may hurt it.</p>
 <p>Barchart:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="CS1.html#cb7-1" aria-hidden="true" tabindex="-1"></a>stent_study <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="CS1.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_props</span>(<span class="sc">~</span>group,<span class="at">fill=</span><span class="sc">~</span>outcome365,<span class="at">position=</span><span class="st">&#39;fill&#39;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="CS1.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title=</span><span class="st">&quot;Impact of Stents of Stroke&quot;</span>,</span>
-<span id="cb7-4"><a href="CS1.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle=</span><span class="st">&#39;Experiment with 451 Patients&#39;</span>,</span>
-<span id="cb7-5"><a href="CS1.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="st">&quot;Experimental Group&quot;</span>,</span>
-<span id="cb7-6"><a href="CS1.html#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="st">&quot;Number of Events&quot;</span>)</span></code></pre></div>
+<span id="cb7-2"><a href="CS1.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_props</span>(<span class="sc">~</span> group, <span class="at">fill =</span> <span class="sc">~</span> outcome365, <span class="at">position =</span> <span class="st">&#39;fill&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="CS1.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title =</span> <span class="st">&quot;Impact of Stents of Stroke&quot;</span>,</span>
+<span id="cb7-4"><a href="CS1.html#cb7-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">&#39;Experiment with 451 Patients&#39;</span>,</span>
+<span id="cb7-5"><a href="CS1.html#cb7-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x =</span> <span class="st">&quot;Experimental Group&quot;</span>, </span>
+<span id="cb7-6"><a href="CS1.html#cb7-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">y =</span> <span class="st">&quot;Number of Events&quot;</span>)</span></code></pre></div>
 <p><img src="01-Data-Case-Study-Solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="problem-2" class="section level3" number="1.2.2">
 <h3><span class="header-section-number">1.2.2</span> Problem 2</h3>
-<p><strong>Migraine and acupuncture</strong> A migraine is a particularly painful type of headache, which patients sometimes wish to treat with acupuncture. To determine whether acupuncture relieves migraine pain, researchers conducted a randomized controlled study where 89 females diagnosed with migraine headaches were randomly assigned to one of two groups: treatment or control. 43 patients in the treatment group received acupuncture that is specifically designed to treat migraines. 46 patients in the control group received placebo acupuncture (needle insertion at nonacupoint locations). 24 hours after patients received acupuncture, they were asked if they were pain free.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<p>The data is in the file <code>migraine_study.csv</code> in the folder <code>data</code>.</p>
+<p><strong>Migraine and acupuncture</strong>. A migraine is a particularly painful type of headache, which patients sometimes wish to treat with acupuncture. To determine whether acupuncture relieves migraine pain, researchers conducted a randomized controlled study where 89 females diagnosed with migraine headaches were randomly assigned to one of two groups: treatment or control. 43 patients in the treatment group received acupuncture that is specifically designed to treat migraines. 46 patients in the control group received placebo acupuncture (needle insertion at nonacupoint locations). 24 hours after patients received acupuncture, they were asked if they were pain free.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>The data is in the file <code>migraine_study.csv</code> in the <code>data</code> folder.</p>
 <p>Complete the following work:</p>
 <ol style="list-style-type: lower-alpha">
 <li>Read the data into an object called <code>migraine_study</code>.</li>
@@ -599,7 +599,7 @@ iii. Create a barchart of the data.</li>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Create a table of the data.</li>
 </ol>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="CS1.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(pain_free<span class="sc">~</span>group,<span class="at">data=</span>migraine_study,<span class="at">format=</span><span class="st">&quot;proportion&quot;</span>,<span class="at">margin=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="CS1.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tally</span>(pain_free <span class="sc">~</span> group, <span class="at">data =</span> migraine_study, <span class="at">format =</span> <span class="st">&quot;proportion&quot;</span>, <span class="at">margin =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##          group
 ## pain_free    control  treatment
 ##     no    0.95652174 0.76744186
@@ -608,15 +608,15 @@ iii. Create a barchart of the data.</li>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Report the percent of patients in the treatment group who were pain free 24 hours after receiving acupuncture.</li>
 </ol>
-<p>There are 23.2% of the treatment group pain free.</p>
+<p>There was 23.2% of the treatment group pain free.</p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Repeat for the control group.</li>
 </ol>
-<p>There are only 4.3% of the control group pain free.</p>
+<p>There were only 4.3% of the control group pain free.</p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>At first glance, does acupuncture appear to be an effective treatment for migraines? Explain your reasoning.</li>
 </ol>
-<p>Yes, a substantial increase in the percentage of patients pain free after acupuncture versus those with no acupuncture, so it appears to be effective.</p>
+<p>Yes, there was a substantial increase in the percentage of patients pain free after acupuncture versus those with no acupuncture, so it appears to be effective.</p>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Do the data provide convincing evidence that there is a real pain reduction for those patients in the treatment group? Or do you think that the observed difference might just be due to chance?</li>
 </ol>

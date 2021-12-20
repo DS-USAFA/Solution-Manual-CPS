@@ -21,12 +21,12 @@
   <meta name="twitter:description" content="This is a set of solutions used for Math 377 starting in the fall of 2020." />
   <meta name="twitter:image" content="/figures/CoverSol2.png" />
 
+<meta name="author" content="Brianna Hitt" />
 <meta name="author" content="Ken Horton" />
-<meta name="author" content="Kris Pruitt" />
 <meta name="author" content="Bradley Warner" />
 
 
-<meta name="date" content="2021-12-15" />
+<meta name="date" content="2021-12-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -541,8 +541,7 @@ div.csl-indent {
 <h3><span class="header-section-number">2.2.1</span> Problem 1</h3>
 <p>Researchers collected data to examine the relationship between pollutants and preterm births in Southern California. During the study air pollution levels were measured by air quality monitoring stations. Specifically, levels of carbon monoxide were recorded in parts per million, nitrogen dioxide and ozone in parts per hundred million, and coarse particulate matter (PM<span class="math inline">\(_{10}\)</span>) in <span class="math inline">\(\mu g/m^3\)</span>. Length of gestation data were collected on 143,196 births between the years 1989 and 1993, and air pollution exposure during gestation was calculated for each birth. The analysis suggested that increased ambient PM<span class="math inline">\(_{10}\)</span> and, to a lesser degree, CO concentrations may be associated with the occurrence of preterm births.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <ol style="list-style-type: lower-roman">
-<li><p>The cases are 143,196 eligible study subjects who were born in Southern California
-between 1989 and 1993.</p></li>
+<li><p>The cases are 143,196 eligible study subjects who were born in Southern California between 1989 and 1993.</p></li>
 <li><p>The variables are measurements of carbon monoxide (CO), nitrogen dioxide, ozone, and particulate matter less than 10<span class="math inline">\(\mu m\)</span> (PM10) collected at air-quality-monitoring stations as well as length of gestation. All of these variables are continuous numerical variables.</p></li>
 <li><p>The research question was <strong>Is there an association between air pollution exposure and preterm births?</strong></p></li>
 </ol>
@@ -566,7 +565,7 @@ between 1989 and 1993.</p></li>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="DB.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Election16)</span></code></pre></div>
 <p>Create the scatterplot.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="DB.html#cb15-1" aria-hidden="true" tabindex="-1"></a>Election16 <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="DB.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(Income<span class="sc">~</span>Adv)</span></code></pre></div>
+<span id="cb15-2"><a href="DB.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(Income <span class="sc">~</span> Adv)</span></code></pre></div>
 <p><img src="02-Data-Basics-Solutions_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>There appears to be a positive association between the percentage of advanced degrees in a state and the per capita income.</p>
 
